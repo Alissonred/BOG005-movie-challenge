@@ -9,7 +9,7 @@ const GetGeneralDates = () => {
     const [options, setOptios] = useState('')
     const [avancedOptions, setAvancedOptios] = useState('')
     const [avancedTitle, setAvancedTitle] = useState('')
-    const [currentMovies, setCurrentMovies] = useState([])
+    const [currentMovies, setCurrentMovies] = useState([]) // peliculas mostradas actualmente
 
 
     const titleHandle = (event) => {
@@ -46,6 +46,12 @@ const GetGeneralDates = () => {
         })
     }
 
+    const categoryHandle = (event) =>{ ///ordenar por 
+        currentMovies.forEach(i=> console.log(i.imdbID))
+        //event.target.value   // parametroa 
+        //getHandle(i.imdbID, event.target.value, title)
+
+    }
 
     return (
         <div>
@@ -80,12 +86,16 @@ const GetGeneralDates = () => {
                 value={avancedTitle}
                 onChange={avancedTitleHandle}
             ></input>
-            <p>{avancedTitle}</p>
+           
 
             <button onClick={() => getHandle(options, title, avancedOptions, avancedTitle)}>buscar</button>
             
             </div>
-            {options=='s'? <ShowMovies currentMovies={currentMovies} />: <ShowOneMovie currentMovies={currentMovies}/>} 
+
+
+
+
+            {options=='s'? <ShowMovies currentMovies={currentMovies} categoryHandle={categoryHandle} />: <ShowOneMovie currentMovies={currentMovies}/>} 
 
       
 
