@@ -10,7 +10,9 @@ const GetGeneralDates = () => {
     const [avancedOptions, setAvancedOptios] = useState('')
     const [avancedTitle, setAvancedTitle] = useState('')
     const [currentMovies, setCurrentMovies] = useState([]) // peliculas mostradas actualmente
-    const [categorySelected, setCategorySelected] = useState('') // SELECTOR DE CATEGORIAS
+    //const [categorySelected, setCategorySelected] = useState('') // SELECTOR DE CATEGORIAS
+    const [filterInput, setFilterInput] = useState('') // INPUT DE filter
+   
 
 
     const titleHandle = (event) => {
@@ -28,6 +30,9 @@ const GetGeneralDates = () => {
     const avancedOptionsHandle = (event) => {
         setAvancedOptios(event.target.value);
     }
+    const setFilterInputHandle = (event) => {
+        setFilterInput(event.target.value);
+    }
 
 
 
@@ -37,9 +42,9 @@ const GetGeneralDates = () => {
         //console.log(`${baseURL}${by}=${ref}&apikey=f9f22e32`);
         return axios.get(`${baseURL}${by}=${ref}&${avBy}=${avRef}&apikey=f9f22e32`).then(res => {
 
-            const search = options=='s'? res.data.Search: res.data ;
-            
-            console.log(res, 'es res');
+            const search = options == 's' ? res.data.Search : res.data;
+
+            //console.log(res, 'es res');
             //console.log(search, 'search');
             // console.log(Object.entires(search), 'data entires res'); /// si es una busqueda por id i titulo
             // console.log(typeof res.data.Search, 'tipo');
@@ -47,78 +52,93 @@ const GetGeneralDates = () => {
         })
     }
 
-    const categoryHandle = (event) =>{ ///ordenar por 
-        const atributeData = [...currentMovies].map(i => axios.get(`${baseURL}i=${i.imdbID}&apikey=f9f22e32`).then(res => {
-            console.log(res.data[event.target.value], 'accede al atributo');
-        }))
-        ///sort    
-        const sortedData = [...currentMovies].sort((a,b)=>{
-           if(a[event.target.value]< b[event.target.value]){
-           return -1
-        }else{
-         return 1
-        }
+
+    const everyRequest = () => {
+        let arrayPromises = [];
+        currentMovies.forEach((movie) => {
+            arrayPromises.push(oneRequest(movie))
         })
-
-        console.log(sortedData, 'sortedData');
-        //return sortedData ///??? o se pone en el hook??
-
-        /// opcion b
-        //const algo =  currentMovies.map(i=> getHandle('i', i.imdbID).then(res=> console.log(res)))
-        ///console.log(algo, 'es algo'); // promesas sinresolver
-        //return Promise.all(algo)
-        //currentMovies.forEach(i=> getHandle('i', i.imdbID).then(res=> console.log(res)))
-        //event.target.value   // parametroa 
-        //getHandle('i', i.imdbID).then(res=> console.log(res))
-
-        return setCurrentMovies([...sortedData])
+        return Promise.all(arrayPromises) // retorno un array de promesas
     }
+
+    const oneRequest = (movie) => {
+        return new Promise((resolve, reject) => {
+            axios.get(`${baseURL}i=${movie.imdbID}&apikey=f9f22e32`).then(res => {
+                console.log(res, 'petición hecha')
+                resolve(res.data)
+            })
+        })
+    }
+    
+    const categoryHandle = (event) => { 
+        everyRequest().then(rta => {// es un array
+            const dataOrdered = rta.sort((a, b) => {
+               // console.log(a[event.target.value], 'es a', b[event.target.value], 'es b');
+                if (a[event.target.value] < b[event.target.value]) {
+                    return -1
+                } else {
+                    return 1
+                }
+            })
+            console.log(rta, 'rta')
+            console.log(dataOrdered, ' dataOrdered')
+            setCurrentMovies([...dataOrdered])
+        })
+    }
+
+    const filterHandle =(event)=>{
+        everyRequest().then(rta => {
+            const dataFiltred = rta.filter(i=>i[event.target.value] == filterInput)
+            console.log(dataFiltred);
+        })
+    }
+
 
     return (
         <div>
-         <div className="searchSection">
-            Busqueda básica
-            <select required onChange={optionsHandle}>
-                <option value=''>Opciones </option>
-                <option value='i'>ID</option>
-                <option value="s">Palabra clave</option>
-                <option value="t">Titulo</option>
-            </select>
+            <div className="searchSection">
+                Busqueda básica
+                <select required onChange={optionsHandle}>
+                    <option value=''>Opciones </option>
+                    <option value='i'>ID</option>
+                    <option value="s">Palabra clave</option>
+                    <option value="t">Titulo</option>
+                </select>
 
-            <input
-                type='text'
-                placeholder='dato'
-                value={title}
-                onChange={titleHandle}
-                required
-            ></input>
-            <p>{title}</p>
+                <input
+                    type='text'
+                    placeholder='dato'
+                    value={title}
+                    onChange={titleHandle}
+                    required
+                ></input>
+                <p>{title}</p>
 
-            Busqueda adicional
-            <select required onChange={avancedOptionsHandle}>
-                <option value=''>Opciones avanzadas </option>
-                <option value='y'>Año</option>
-                <option value="Type">Tipo</option>
-            </select>
+                Busqueda adicional
+                <select required onChange={avancedOptionsHandle}>
+                    <option value=''>Opciones avanzadas </option>
+                    <option value='y'>Año</option>
+                    <option value="Type">Tipo</option>
+                </select>
 
-            <input
-                type='text'
-                placeholder='dato'
-                value={avancedTitle}
-                onChange={avancedTitleHandle}
-            ></input>
-           
+                <input
+                    type='text'
+                    placeholder='dato'
+                    value={avancedTitle}
+                    onChange={avancedTitleHandle}
+                ></input>
 
-            <button onClick={() => getHandle(options, title, avancedOptions, avancedTitle)}>buscar</button>
-            
+
+                <button onClick={() => getHandle(options, title, avancedOptions, avancedTitle)}>buscar</button>
+
             </div>
 
 
 
 
-            {options=='s'? <ShowMovies currentMovies={currentMovies} categoryHandle={categoryHandle} />: <ShowOneMovie currentMovies={currentMovies}/>} 
+            {options == 's' ? <ShowMovies currentMovies={currentMovies} categoryHandle={categoryHandle} filterHandle={filterHandle} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle}/> : <ShowOneMovie currentMovies={currentMovies} />}
 
-      
+
 
 
 

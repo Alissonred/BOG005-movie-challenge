@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './styles.css'
 
-const ShowMovies = ({ currentMovies, categoryHandle }) => {
+const ShowMovies = ({ currentMovies, categoryHandle, filterHandle, filterInput, setFilterInputHandle}) => {
     console.log(currentMovies, 'currentMovies en showmovies');
     return (
 
@@ -18,6 +18,20 @@ const ShowMovies = ({ currentMovies, categoryHandle }) => {
                 <option value='Language'>Idioma</option>
             </select>
 
+            <select  onChange={filterHandle}>
+                <option value=''>Filtro</option>
+                <option value='Genre'>Genero</option>
+                <option value='Language'>Idioma</option>
+            </select>
+
+            <input
+                    type='text'
+                    placeholder='dato'
+                    value={filterInput}
+                    onChange={setFilterInputHandle}
+                    required
+            ></input>
+
             <div className="moviesContainer">
                 {currentMovies.map((movie, i) => {
                     return (
@@ -26,7 +40,11 @@ const ShowMovies = ({ currentMovies, categoryHandle }) => {
                             <p>año:{movie.Year}</p>
                             <p>ID:{movie.imdbID}</p>
                             <img src={movie.Poster} alt='poster' />
-                            <p>Tipo:{movie.Type}</p></article>
+                            <p>Puntuación:{movie.imdbRating}</p>
+                            <p>Votos:{movie.imdbVotes}</p>
+                            <p>Duración:{movie.Runtime}</p>
+                            <p>Tipo:{movie.Type}</p>
+                            </article>
                     )
 
                 })}
