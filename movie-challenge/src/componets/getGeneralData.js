@@ -39,7 +39,7 @@ const GetGeneralDates = () => {
             const search = options=='s'? res.data.Search: res.data ;
             
             console.log(res, 'es res');
-            console.log(search, 'search');
+            //console.log(search, 'search');
             // console.log(Object.entires(search), 'data entires res'); /// si es una busqueda por id i titulo
             // console.log(typeof res.data.Search, 'tipo');
             return setCurrentMovies(search)
@@ -47,9 +47,30 @@ const GetGeneralDates = () => {
     }
 
     const categoryHandle = (event) =>{ ///ordenar por 
-        currentMovies.forEach(i=> console.log(i.imdbID))
+        const algo =  currentMovies.map(i => axios.get(`${baseURL}i=${i.imdbID}&apikey=f9f22e32`).then(res => {
+            let sel = event.target.value
+            const search =  res.data ; // es un objeto
+            console.log(search,'search');
+            console.log(sel, 'sel'); // es el atributo
+            //console.log(typeof sel, typeof search.imdbRating, 'tipado' );
+            console.log(search.imdbRating, 'atributo');
+            console.log(sel, 'atributoxxxx');
+            console.log(search.sel, 'atributoxxxx');
+
+
+
+            //console.log(res, 'es res');
+          
+            //return setCurrentMovies(search)
+        }))
+        /// opcion b
+        //const algo =  currentMovies.map(i=> getHandle('i', i.imdbID).then(res=> console.log(res)))
+        ///console.log(algo, 'es algo'); // promesas sinresolver
+        //return Promise.all(algo)
+        //currentMovies.forEach(i=> getHandle('i', i.imdbID).then(res=> console.log(res)))
         //event.target.value   // parametroa 
-        //getHandle(i.imdbID, event.target.value, title)
+        //getHandle('i', i.imdbID).then(res=> console.log(res))
+
 
     }
 
