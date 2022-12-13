@@ -90,6 +90,7 @@ const GetGeneralDates = () => {
         everyRequest().then(rta => {
             const dataFiltred = rta.filter(i=>i[event.target.value] == filterInput)
             console.log(dataFiltred);
+            setCurrentMovies([...dataFiltred])
         })
     }
 
