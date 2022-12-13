@@ -1,0 +1,13 @@
+.moviesContainer{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+    
+}
+.searchSection{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.articleMovie{
+    border-color: orange 2px;
+}
