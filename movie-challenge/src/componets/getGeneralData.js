@@ -48,38 +48,20 @@ const GetGeneralDates = () => {
     }
 
     const categoryHandle = (event) =>{ ///ordenar por 
-        const getData=  currentMovies.map(i => axios.get(`${baseURL}i=${i.imdbID}&apikey=f9f22e32`).then(res => {
-            let sel = event.target.value
-            //setCategorySelected(event.target.value)
-            const search =  res.data ; // es un objeto
-            console.log(search,'search');
-            //console.log(sel, 'sel'); // es el atributo
-            //console.log(typeof sel, typeof search.imdbRating, 'tipado' );
-            //console.log(search.imdbRating, 'atributo dado');
-            console.log(sel, 'atributo seleccionado');
-            //console.log(categorySelected, 'atributo seleccionado HOOK');
-            //console.log(search.categorySelected, 'atributo seleccionado HOOK');
-            console.log(search[sel], 'atributo');
-
-            ///ORDENADO
-
-            //console.log(res, 'es res');
-          
-            //return setCurrentMovies(search)
+        const atributeData = [...currentMovies].map(i => axios.get(`${baseURL}i=${i.imdbID}&apikey=f9f22e32`).then(res => {
+            console.log(res.data[event.target.value], 'accede al atributo');
         }))
-
-
         ///sort    
-        //const sortedData = currentMovies.sort((a,b)=>{
-        //    if(a.atribute< b.atribute){
-        //    return -1
-        //}else{
-        //  return 1
-        //}
-        //})
+        const sortedData = [...currentMovies].sort((a,b)=>{
+           if(a[event.target.value]< b[event.target.value]){
+           return -1
+        }else{
+         return 1
+        }
+        })
+
+        console.log(sortedData, 'sortedData');
         //return sortedData ///??? o se pone en el hook??
-
-
 
         /// opcion b
         //const algo =  currentMovies.map(i=> getHandle('i', i.imdbID).then(res=> console.log(res)))
@@ -89,7 +71,7 @@ const GetGeneralDates = () => {
         //event.target.value   // parametroa 
         //getHandle('i', i.imdbID).then(res=> console.log(res))
 
-
+        return setCurrentMovies([...sortedData])
     }
 
     return (
