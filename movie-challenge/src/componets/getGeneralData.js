@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ShowMovies from "./showMovies";
 import ShowOneMovie from "./showOneMovie";
 import './styles.css'
@@ -90,32 +90,51 @@ const GetGeneralDates = () => {
         })
     }
 
+    // useEffect(() => {/// hacer que se monte al inicio 
+    //     getHandle('s','star').then(res=>{
+    //         return setCurrentMovies(res.data.Search)
+    //     })
+    // }, [])
+
 
     return (
         <div className="pageContainer">
 
             <header className="headerContainer">
-            <div className="searchSection">
-                Busqueda
-                <select required onChange={optionsHandle}>
-                    <option value='s'>Opciones </option>
-                    <option value='i'>ID</option>
-                    <option value="s">Palabra clave</option>
-                    <option value="t">Titulo</option>
-                </select>
+                <div className="searchSection">
+                    Busqueda
+                    <select required onChange={optionsHandle}>
+                        <option value='s'>Opciones </option>
+                        <option value='i'>ID</option>
+                        <option value="s">Palabra clave</option>
+                        <option value="t">Titulo</option>
+                    </select>
 
-                <input
-                    type='text'
-                    placeholder='Buscar'
-                    value={title}
-                    onChange={titleHandle}
-                    required
-                ></input>
-                <button onClick={() => getHandle(options, title)}>buscar</button>
-            </div>
+                    <input
+                        list="listInic"
+                        type='text'
+                        placeholder='Buscar'
+                        value={title}
+                        onChange={titleHandle}
+                        required
+                    ></input>
+
+                    <           datalist id="listInic" >
+                        <option value=''>Filtro</option>
+                        <option value='halloween'>halloween</option>
+                        <option value='Love'>amor</option>
+                        <option value='man'>Super Heroes</option>
+                        <option value='star'>Espacio</option>
+                        <option value='marvel'>marvel</option>
+                        <option value='fast'>acción</option>
+                    </datalist>
+
+
+                    <button onClick={() => getHandle(options, title)}>buscar</button>
+                </div>
             </header>
             <section className="componentsContainer">
-            {options == 's' ? <ShowMovies currentMovies={currentMovies} categoryHandle={categoryHandle} filterHandle={filterHandle} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} /> : <ShowOneMovie currentMovies={currentMovies} />}
+                {options == 's' ? <ShowMovies currentMovies={currentMovies} categoryHandle={categoryHandle} filterHandle={filterHandle} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} /> : <ShowOneMovie currentMovies={currentMovies} />}
             </section>
         </div>
     )

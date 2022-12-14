@@ -18,23 +18,9 @@ const ShowMovies = ({ currentMovies, categoryHandle, filterHandle, filterInput, 
 
             </select>
 
-            <input  list="list"
-                    type='text'
-                    placeholder='dato'
-                    value={filterInput}
-                    onChange={setFilterInputHandle}
-                    required
-            ></input>
-
-            <datalist id="list" onChange={filterHandle}>
-                <option value=''>Filtro</option>
-                <option value='Genre'>Genero</option>
-                <option value='Language'>Idioma</option>
-            </datalist>
+            <button onClick={filterHandle}>Mas opciones</button>
 
             </section>
-
-
 
             <div className="moviesContainer">
                 {currentMovies.map((movie, i) => {
