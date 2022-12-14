@@ -73,12 +73,34 @@ const GetGeneralDates = () => {
     const categoryHandle = (event) => { 
         everyRequest().then(rta => {// es un array
             const dataOrdered = rta.sort((a, b) => {
-               // console.log(a[event.target.value], 'es a', b[event.target.value], 'es b');
-                if (a[event.target.value] < b[event.target.value]) {
-                    return -1
-                } else {
-                    return 1
+                //console.log(a[event.target.value], 'es a', b[event.target.value], 'es b');
+                //console.log(Number(a[event.target.value].replace(',','')), 'es a');
+                
+                
+                if(event.target.value == 'Runtime'){
+                    console.log(Number(a[event.target.value].slice(0,-4)),'es a',a[event.target.value]);
+                    if (Number(a[event.target.value].slice(0,-4)) < Number(b[event.target.value].slice(0,-4))) {
+                        return -1
+                    } else {
+                        return 1
+                    }
                 }
+                else if(event.target.value == 'imdbVotes' || event.target.value == 'imdbRating'){
+                    console.log('imdbVotes');
+                    if (Number(a[event.target.value].replace(',','')) < Number(b[event.target.value].replace(',',''))) {
+                        return -1
+                    } else {
+                        return 1
+                    }
+                }else{
+                    if (a[event.target.value] < b[event.target.value]) {
+                        return -1
+                    } else {
+                        return 1
+                    }
+                }
+
+                
             })
             console.log(rta, 'rta')
             console.log(dataOrdered, ' dataOrdered')
