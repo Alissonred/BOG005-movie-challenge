@@ -6,6 +6,7 @@ const ShowMovies = ({ currentMovies, categoryHandle, filterHandle, filterInput, 
     return (
 
         <div>
+            <section className="subHeader">
             Categorías generales
             <select required onChange={categoryHandle}>
                 <option value=''>Categoría </option>
@@ -14,8 +15,7 @@ const ShowMovies = ({ currentMovies, categoryHandle, filterHandle, filterInput, 
                 <option value='imdbRating'>Puntuación</option>
                 <option value='Year'>Antiguedad</option>
                 <option value='Runtime'>Duración</option>
-                <option value='Genre'>Genero</option>
-                <option value='Language'>Idioma</option>
+
             </select>
 
             <input  list="list"
@@ -32,7 +32,7 @@ const ShowMovies = ({ currentMovies, categoryHandle, filterHandle, filterInput, 
                 <option value='Language'>Idioma</option>
             </datalist>
 
-
+            </section>
 
 
 
@@ -40,10 +40,12 @@ const ShowMovies = ({ currentMovies, categoryHandle, filterHandle, filterInput, 
                 {currentMovies.map((movie, i) => {
                     return (
                         <article key={i} className="articleMovie" >
-                            <p>titulo:{movie.Title} </p>
-                            <p>año:{movie.Year}</p>
+                            <p>{movie.Title} </p>
+                            <p>Año:{movie.Year}</p>
                             <p>ID:{movie.imdbID}</p>
-                            <img src={movie.Poster} alt='poster' />
+                            <picture className='moviePost'>
+                            <img  src={movie.Poster} alt='poster' />
+                            </picture>
                             <p>Puntuación:{movie.imdbRating}</p>
                             <p>Votos:{movie.imdbVotes}</p>
                             <p>Duración:{movie.Runtime}</p>
