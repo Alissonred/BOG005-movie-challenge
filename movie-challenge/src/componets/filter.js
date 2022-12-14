@@ -213,7 +213,7 @@ const FilterComponent = ({ filterTypeHandle, filterCountryHandle, filterLanguage
                 <option value="PT">Portugal</option>
                 <option value="PR">Puerto Rico</option>
                 <option value="QA">Qatar</option>
-                <option value="UK">Reino Unido</option>
+                <option value="United Kingdom">Reino Unido</option>
                 <option value="CF">República Centroafricana</option>
                 <option value="CZ">República Checa</option>
                 <option value="ZA">República de Sudáfrica</option>
@@ -274,8 +274,7 @@ const FilterComponent = ({ filterTypeHandle, filterCountryHandle, filterLanguage
             <input list="listLanguages"
                 type='text'
                 placeholder='Idioma'
-                value={filterInput}
-                onChange={setFilterInputHandle}
+                onChange={(event)=>filterTypeHandle(event,'Language')}
                 required
             ></input>
 
@@ -286,9 +285,11 @@ const FilterComponent = ({ filterTypeHandle, filterCountryHandle, filterLanguage
             <option value="Albanian">Albanés</option>
             <option value="Afrikaans">Afrikaans</option>
             <option value="Spanish">Español</option>
+            <option value="French">Francés</option>
             <option value="English">Inglés</option>
             <option value="Italian">Italiano</option>
             <option value="Japanese">Japones</option>
+            <option value="Portuguese">Portugués</option>
             <option value="Turkish">Turco</option>
             </datalist>
 

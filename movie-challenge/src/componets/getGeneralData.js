@@ -83,6 +83,7 @@ const GetGeneralDates = () => {
     }
 
     const filterTypeHandle = (event, opc) => {
+        console.log('entró a evento');
         everyRequest().then(rta => {
 
             if (opc == 'Genre' || opc == 'Country' || opc == 'Language') {

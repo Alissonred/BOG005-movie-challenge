@@ -19,7 +19,7 @@ const ShowMovies = ({ currentMovies, categoryHandle, filterTypeHandle, filterCou
 
             </select>
 
-            <button onClick={filterTypeHandle}>Mas opciones</button>
+            <button onClick={categoryHandle}>Mas opciones</button>
 
             </section>
 
