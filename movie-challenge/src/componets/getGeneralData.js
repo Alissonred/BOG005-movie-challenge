@@ -9,6 +9,7 @@ const GetGeneralDates = () => {
     const [isOpenModal, setisOpenModal] = useState(false); // estado de apertura de modal
     const [title, setTitle] = useState('')
     const [currentMovies, setCurrentMovies] = useState([]) // peliculas mostradas actualmente
+    const [searchMovies, setSearchMovies] = useState([]) // peliculas mostradas actualmente
     const [filterInput, setFilterInput] = useState('') // INPUT DE filter
     const [selectedMovie, setSelectedMovie] = useState({}) // PELI SELECC
 
@@ -33,13 +34,15 @@ const GetGeneralDates = () => {
     const baseURL = 'https://www.omdbapi.com/?'  /* 'https://www.omdbapi.com/?i=tt3896198&apikey=f9f22e32' */
 
     const getHandle = (by = '', ref = '') => {
-        return axios.get(`${baseURL}${by}=${ref}&apikey=f9f22e32`).then(res => setCurrentMovies(res.data.Search))
+        return axios.get(`${baseURL}${by}=${ref}&apikey=f9f22e32`).then(res => {
+         setSearchMovies((res.data.Search))
+            setCurrentMovies(res.data.Search)})
     }
 
 
-    const everyRequest = () => {
+    const everyRequest = (movies) => {
         let arrayPromises = [];
-        currentMovies.forEach((movie) => {
+        movies.forEach((movie) => {
             arrayPromises.push(oneRequest(movie))
         })
         return Promise.all(arrayPromises) // retorno un array de promesas
@@ -55,7 +58,7 @@ const GetGeneralDates = () => {
     }
 
     const categoryHandle = (event) => {
-        everyRequest().then(rta => {// es un array
+        everyRequest(currentMovies).then(rta => {// es un array
             const dataOrdered = rta.sort((a, b) => {
                 if (event.target.value == 'Runtime') {
                     if (Number(a[event.target.value].slice(0, -4)) < Number(b[event.target.value].slice(0, -4))) {
@@ -84,7 +87,7 @@ const GetGeneralDates = () => {
 
     const filterTypeHandle = (event, opc) => {
         console.log('entró a evento');
-        everyRequest().then(rta => {
+        everyRequest(searchMovies).then(rta => {
 
             if (opc == 'Genre' || opc == 'Country' || opc == 'Language') {
                 const dataFiltred = rta.filter(i => {
