@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FilterComponent from "./filter";
 import './styles.css'
 
-const ShowMovies = ({ currentMovies, categoryHandle, filterHandle, filterInput, setFilterInputHandle}) => {
+const ShowMovies = ({ currentMovies, categoryHandle, filterTypeHandle, filterCountryHandle, filterLanguageHandle, filterGenreHandle, filterInput, setFilterInputHandle}) => {
     console.log(currentMovies, 'currentMovies en showmovies');
     return (
 
@@ -19,12 +19,12 @@ const ShowMovies = ({ currentMovies, categoryHandle, filterHandle, filterInput, 
 
             </select>
 
-            <button onClick={filterHandle}>Mas opciones</button>
+            <button onClick={filterTypeHandle}>Mas opciones</button>
 
             </section>
 
             <section className="searchContainer">
-            <FilterComponent filterHandle={filterHandle} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle}/>
+            <FilterComponent filterTypeHandle={filterTypeHandle} filterCountryHandle={filterCountryHandle} filterLanguageHandle={filterLanguageHandle} filterGenreHandle={filterGenreHandle} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle}/>
             <div className="moviesContainer">
                 {currentMovies.map((movie, i) => {
                     return (

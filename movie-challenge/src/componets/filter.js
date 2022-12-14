@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import './styles.css'
 
-const FilterComponent = ({ filterHandle, filterInput, setFilterInputHandle }) => {
+const FilterComponent = ({ filterTypeHandle, filterCountryHandle, filterLanguageHandle, filterGenreHandle, filterInput, setFilterInputHandle }) => {
 
     return (
         <div>
-            <select required onChange={filterHandle}>
+            <select required onChange={(event)=>filterTypeHandle(event,'Type')}>
                 <option value=''>Tipo </option>
-                <option value='Movie'>Película</option>
-                <option value='Series'>Serie</option>
+                <option value='movie'>Película</option>
+                <option value='series'>Serie</option>
             </select>
 
-         <section className="gendryOptiosContainer">
+         <section className="gendryOptiosContainer" onClick={(event)=>filterTypeHandle(event,'Genre')}>
             <label > <input type='checkbox' value='Drama' name="drama"/>Drama </label>
             <label > <input type='checkbox' value='Romance' name="drama"/>Romance </label>
             <label > <input type='checkbox' value='Action' name="drama"/>Acción </label>
@@ -22,43 +22,42 @@ const FilterComponent = ({ filterHandle, filterInput, setFilterInputHandle }) =>
             <label > <input type='checkbox' value='Suspence' name="drama"/>Suspenso </label>
             <label > <input type='checkbox' value='Documentary' name="drama"/>Documental</label>
             <label > <input type='checkbox' value='Crime' name="drama"/>Crimen</label>
-
-            </section>
+        </section>
 
 
             <input list="listCountries"
                 type='text'
                 placeholder='Pais'
-                value={filterInput}
-                onChange={setFilterInputHandle}
+                /* value={filterInput}*/
+                onChange={(event)=>filterTypeHandle(event,'Country')}
                 required
             ></input>
 
-            <datalist id="listCountries" onChange={filterHandle}>
+            <datalist id="listCountries" onChange={(event)=>filterTypeHandle(event,'Country')}>
                 <option value=''>Todos Los paises</option>
-                <option value="AF">Afganistán</option>
-                <option value="AL">Albania</option>
-                <option value="DE">Alemania</option>
-                <option value="AD">Andorra</option>
-                <option value="AO">Angola</option>
+                <option value="Afghanistan">Afganistán</option>
+                <option value="Albania">Albania</option>
+                <option value="Germany">Alemania</option>
+                <option value="Andorra">Andorra</option>
+                <option value="Angola">Angola</option>
                 <option value="AI">Anguilla</option>
                 <option value="AQ">Antártida</option>
-                <option value="AG">Antigua y Barbuda</option>
+                <option value="Antigua and Barbuda">Antigua y Barbuda</option>
                 <option value="AN">Antillas Holandesas</option>
                 <option value="SA">Arabia Saudí</option>
                 <option value="DZ">Argelia</option>
-                <option value="AR">Argentina</option>
-                <option value="AM">Armenia</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Armenia">Armenia</option>
                 <option value="AW">Aruba</option>
-                <option value="AU">Australia</option>
-                <option value="AT">Austria</option>
+                <option value="Australia">Australia</option>
+                <option value="Austria">Austria</option>
                 <option value="AZ">Azerbaiyán</option>
-                <option value="BS">Bahamas</option>
+                <option value="Bahamas">Bahamas</option>
                 <option value="BH">Bahrein</option>
-                <option value="BD">Bangladesh</option>
+                <option value="Bangladesh">Bangladesh</option>
                 <option value="BB">Barbados</option>
-                <option value="BE">Bélgica</option>
-                <option value="BZ">Belice</option>
+                <option value="Belgium">Bélgica</option>
+                <option value="Belize">Belice</option>
                 <option value="BJ">Benin</option>
                 <option value="BM">Bermudas</option>
                 <option value="BY">Bielorrusia</option>
@@ -66,22 +65,22 @@ const FilterComponent = ({ filterHandle, filterInput, setFilterInputHandle }) =>
                 <option value="BO">Bolivia</option>
                 <option value="BA">Bosnia y Herzegovina</option>
                 <option value="BW">Botswana</option>
-                <option value="BR">Brasil</option>
+                <option value="Brazil">Brasil</option>
                 <option value="BN">Brunei</option>
-                <option value="BG">Bulgaria</option>
-                <option value="BF">Burkina Faso</option>
+                <option value="Bulgaria">Bulgaria</option>
+                <option value="Burkina Faso">Burkina Faso</option>
                 <option value="BI">Burundi</option>
                 <option value="BT">Bután</option>
                 <option value="CV">Cabo Verde</option>
                 <option value="KH">Camboya</option>
                 <option value="CM">Camerún</option>
-                <option value="CA">Canadá</option>
+                <option value="Canada">Canadá</option>
                 <option value="TD">Chad</option>
-                <option value="CL">Chile</option>
-                <option value="CN">China</option>
+                <option value="Chile">Chile</option>
+                <option value="China">China</option>
                 <option value="CY">Chipre</option>
                 <option value="VA">Ciudad del Vaticano (Santa Sede)</option>
-                <option value="CO">Colombia</option>
+                <option value="Colombia">Colombia</option>
                 <option value="KM">Comores</option>
                 <option value="CG">Congo</option>
                 <option value="CD">Congo, República Democrática del</option>
@@ -91,23 +90,23 @@ const FilterComponent = ({ filterHandle, filterInput, setFilterInputHandle }) =>
                 <option value="CR">Costa Rica</option>
                 <option value="HR">Croacia (Hrvatska)</option>
                 <option value="CU">Cuba</option>
-                <option value="DK">Dinamarca</option>
-                <option value="DJ">Djibouti</option>
-                <option value="DM">Dominica</option>
-                <option value="EC">Ecuador</option>
-                <option value="EG">Egipto</option>
+                <option value="Denmark">Dinamarca</option>
+                <option value="Djibouti">Djibouti</option>
+                <option value="Dominica">Dominica</option>
+                <option value="Ecuador">Ecuador</option>
+                <option value="Egypt">Egipto</option>
                 <option value="SV">El Salvador</option>
                 <option value="AE">Emiratos Árabes Unidos</option>
                 <option value="ER">Eritrea</option>
                 <option value="SI">Eslovenia</option>
-                <option value="ES">España</option>
-                <option value="US">Estados Unidos</option>
-                <option value="EE">Estonia</option>
+                <option value="Spain">España</option>
+                <option value="United States">Estados Unidos</option>
+                <option value="Estonia">Estonia</option>
                 <option value="ET">Etiopía</option>
                 <option value="FJ">Fiji</option>
                 <option value="PH">Filipinas</option>
                 <option value="FI">Finlandia</option>
-                <option value="FR">Francia</option>
+                <option value="France">Francia</option>
                 <option value="GA">Gabón</option>
                 <option value="GM">Gambia</option>
                 <option value="GE">Georgia</option>
@@ -257,15 +256,15 @@ const FilterComponent = ({ filterHandle, filterInput, setFilterInputHandle }) =>
                 <option value="TT">Trinidad y Tobago</option>
                 <option value="TN">Túnez</option>
                 <option value="TM">Turkmenistán</option>
-                <option value="TR">Turquía</option>
+                <option value="Turkey">Turquía</option>
                 <option value="TV">Tuvalu</option>
-                <option value="UA">Ucrania</option>
+                <option value="Ukraine">Ucrania</option>
                 <option value="UG">Uganda</option>
                 <option value="UY">Uruguay</option>
                 <option value="UZ">Uzbekistán</option>
                 <option value="VU">Vanuatu</option>
-                <option value="VE">Venezuela</option>
-                <option value="VN">Vietnam</option>
+                <option value="Venezuela">Venezuela</option>
+                <option value="Vietnam">Vietnam</option>
                 <option value="YE">Yemen</option>
                 <option value="YU">Yugoslavia</option>
                 <option value="ZM">Zambia</option>
@@ -280,7 +279,7 @@ const FilterComponent = ({ filterHandle, filterInput, setFilterInputHandle }) =>
                 required
             ></input>
 
-            <datalist id="listLanguages" onChange={filterHandle}>
+            <datalist id="listLanguages" onChange={(event)=>filterTypeHandle(event,'Language')}>
             <option value="Afrikaans">Afrikaans</option>
             <option value="Albanian">Albanés</option>
             <option value="Arabic">Arabe</option>

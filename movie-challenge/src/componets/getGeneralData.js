@@ -82,13 +82,56 @@ const GetGeneralDates = () => {
         })
     }
 
-    const filterHandle = (event) => {
+    const filterTypeHandle = (event, opc) => {
         everyRequest().then(rta => {
-            const dataFiltred = rta.filter(i => i[event.target.value] == filterInput)
-            console.log(dataFiltred);
+
+            if (opc == 'Genre' || opc == 'Country' || opc == 'Language') {
+                const dataFiltred = rta.filter(i => {
+                    return i[opc].includes(event.target.value)
+                })
+                console.log(dataFiltred, 'es lo que filtró')
+                setCurrentMovies([...dataFiltred])
+            } else {
+                const dataFiltred = rta.filter(i => {
+                    return i[opc] == event.target.value
+                })
+                console.log(dataFiltred, 'es lo que filtró')
+                setCurrentMovies([...dataFiltred])
+            }
+            ;
+            
+        })
+    }
+
+    const filterCountryHandle = (event) => { ///se puede optimizar???
+        everyRequest().then(rta => {
+            const dataFiltred = rta.filter(i => {
+                return i.Country == event.target.value
+            })
+            console.log(dataFiltred, 'es lo que filtró');
             setCurrentMovies([...dataFiltred])
         })
     }
+
+    const filterLanguageHandle = (event) => {
+        everyRequest().then(rta => {
+            const dataFiltred = rta.filter(i => {
+                return i.Language == event.target.value
+            })
+            console.log(dataFiltred, 'es lo que filtró');
+            setCurrentMovies([...dataFiltred])
+        })
+
+    }
+
+    const filterGenreHandle = (event) => {
+
+    }
+
+
+
+
+
 
     // useEffect(() => {/// hacer que se monte al inicio 
     //     getHandle('s','star').then(res=>{
@@ -119,7 +162,7 @@ const GetGeneralDates = () => {
                         required
                     ></input>
 
-                    <           datalist id="listInic" >
+                    <datalist id="listInic" >
                         <option value=''>Filtro</option>
                         <option value='halloween'>halloween</option>
                         <option value='Love'>amor</option>
@@ -134,7 +177,7 @@ const GetGeneralDates = () => {
                 </div>
             </header>
             <section className="componentsContainer">
-                {options == 's' ? <ShowMovies currentMovies={currentMovies} categoryHandle={categoryHandle} filterHandle={filterHandle} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} /> : <ShowOneMovie currentMovies={currentMovies} />}
+                {options == 's' ? <ShowMovies currentMovies={currentMovies} categoryHandle={categoryHandle} filterTypeHandle={filterTypeHandle} filterLanguageHandle={filterLanguageHandle} filterCountryHandle={filterCountryHandle} filterGenreHandle={filterGenreHandle} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} /> : <ShowOneMovie currentMovies={currentMovies} />}
             </section>
         </div>
     )
