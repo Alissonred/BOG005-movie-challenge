@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import './styles.css'
 
-const ShowOneMovie =({currentMovies})=>{
+const ShowOneMovie =({selectedMovie})=>{
 
 return(
     <div>
         <article className="articleOneMovie"> 
-        <p>titulo:{currentMovies.Title} </p>
-        <p>año:{currentMovies.Year}</p> 
-        <img src={currentMovies.Poster}  alt='poster'/>
-        <p>Trama: {currentMovies.Plot}</p> 
-        <p>Genero: {currentMovies.Genre}</p> 
-        <p>Puntuación: {currentMovies.imdbRating}</p> 
-        <p>Votos: {currentMovies.imdbVotes}</p> 
+        <p>titulo:{selectedMovie.Title} </p>
+        <p>año:{selectedMovie.Year}</p> 
+        <img src={selectedMovie.Poster}  alt='poster'/>
+        <p>Trama: {selectedMovie.Plot}</p> 
+        <p>Genero: {selectedMovie.Genre}</p> 
+        <p>Puntuación: {selectedMovie.imdbRating}</p> 
+        <p>Votos: {selectedMovie.imdbVotes}</p> 
         </article>  
 
     </div>
@@ -20,9 +20,9 @@ return(
 }
 export default ShowOneMovie
 
-/* <p>ID:{currentMovies.imdbID}</p>
-        <img src={currentMovies.Poster} alt='poster'/>
-        <p>Tipo:{currentMovies.Type}</p> */
+/* <p>ID:{selectedMovie.imdbID}</p>
+        <img src={selectedMovie.Poster} alt='poster'/>
+        <p>Tipo:{selectedMovie.Type}</p> */
 
 
         

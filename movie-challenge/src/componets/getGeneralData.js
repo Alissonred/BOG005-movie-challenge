@@ -3,14 +3,24 @@ import React, { useEffect, useState } from "react";
 import ShowMovies from "./showMovies";
 import ShowOneMovie from "./showOneMovie";
 import './styles.css'
+import Modal from "./modal";
 
 const GetGeneralDates = () => {
+    const [isOpenModal, setisOpenModal] = useState(false); // estado de apertura de modal
     const [title, setTitle] = useState('')
     const [options, setOptios] = useState('')
     const [currentMovies, setCurrentMovies] = useState([]) // peliculas mostradas actualmente
     const [filterInput, setFilterInput] = useState('') // INPUT DE filter
+    const [selectedMovie, setSelectedMovie] = useState({}) // PELI SELECC
 
 
+    const openModal = () => {
+        setisOpenModal(true);
+    };
+    const closeModal = () => {
+        setisOpenModal(false);
+        //setSelectedUser({}); // si el useEffect de editusers no funciona
+    };
 
     const titleHandle = (event) => {
         setTitle(event.target.value);
@@ -48,7 +58,7 @@ const GetGeneralDates = () => {
     const oneRequest = (movie) => {
         return new Promise((resolve, reject) => {
             axios.get(`${baseURL}i=${movie.imdbID}&apikey=f9f22e32`).then(res => {
-                console.log(res, 'petición hecha')
+                console.log(res.data, 'petición hecha')
                 resolve(res.data)
             })
         })
@@ -100,39 +110,19 @@ const GetGeneralDates = () => {
                 setCurrentMovies([...dataFiltred])
             }
             ;
-            
+
         })
     }
 
-    const filterCountryHandle = (event) => { ///se puede optimizar???
-        everyRequest().then(rta => {
-            const dataFiltred = rta.filter(i => {
-                return i.Country == event.target.value
-            })
-            console.log(dataFiltred, 'es lo que filtró');
-            setCurrentMovies([...dataFiltred])
+    const showDetailsMovie = (event) => {
+        console.log(event.currentTarget.dataset.id, 'hizo click');
+        axios.get(`${baseURL}i=${event.currentTarget.dataset.id}&apikey=f9f22e32`).then(res => {
+            openModal()
+            console.log(res.data, 'es la rta indiv')
+            setSelectedMovie(res.data)
         })
+        
     }
-
-    const filterLanguageHandle = (event) => {
-        everyRequest().then(rta => {
-            const dataFiltred = rta.filter(i => {
-                return i.Language == event.target.value
-            })
-            console.log(dataFiltred, 'es lo que filtró');
-            setCurrentMovies([...dataFiltred])
-        })
-
-    }
-
-    const filterGenreHandle = (event) => {
-
-    }
-
-
-
-
-
 
     // useEffect(() => {/// hacer que se monte al inicio 
     //     getHandle('s','star').then(res=>{
@@ -175,10 +165,16 @@ const GetGeneralDates = () => {
 
 
                     <button onClick={() => getHandle(options, title)}>buscar</button>
+                    <Modal
+                        isOpen={isOpenModal}
+                        closeModal={closeModal}
+                        contenido={<ShowOneMovie  selectedMovie={selectedMovie}  /> }
+                         />
+
                 </div>
             </header>
             <section className="componentsContainer">
-                {options == 's' ? <ShowMovies currentMovies={currentMovies} categoryHandle={categoryHandle} filterTypeHandle={filterTypeHandle} filterLanguageHandle={filterLanguageHandle} filterCountryHandle={filterCountryHandle} filterGenreHandle={filterGenreHandle} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} /> : <ShowOneMovie currentMovies={currentMovies} />}
+            <ShowMovies currentMovies={currentMovies} categoryHandle={categoryHandle} filterTypeHandle={filterTypeHandle} showDetailsMovie={showDetailsMovie} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} />
             </section>
         </div>
     )
@@ -186,3 +182,6 @@ const GetGeneralDates = () => {
 }
 
 export default GetGeneralDates
+
+//contenido={<ShowOneMovie  selectedMovie={selectedMovie}  /> }
+//{options == 's' ? <ShowMovies currentMovies={currentMovies} categoryHandle={categoryHandle} filterTypeHandle={filterTypeHandle} showDetailsMovie={showDetailsMovie} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} /> : <ShowOneMovie currentMovies={currentMovies} />}

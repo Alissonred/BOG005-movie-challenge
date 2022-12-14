@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './styles.css'
 
-const FilterComponent = ({ filterTypeHandle, filterCountryHandle, filterLanguageHandle, filterGenreHandle, filterInput, setFilterInputHandle }) => {
+const FilterComponent = ({ filterTypeHandle, filterInput, setFilterInputHandle }) => {
 
     return (
         <div>
