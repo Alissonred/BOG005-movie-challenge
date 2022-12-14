@@ -9,10 +9,16 @@ html{
     flex-direction: column;
 }
 .moviesContainer{
-    display: grid;
+/*     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
     width: 100%;
-    gap:5px
+    gap:5px */
+    display: flex;
+    gap: 3rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 
     
 }
@@ -61,3 +67,18 @@ p{
  flex-direction: column;
 
 }
+.movieInGrid{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+/*     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; */
+}
+
+/* .movieInGrid p{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+} */

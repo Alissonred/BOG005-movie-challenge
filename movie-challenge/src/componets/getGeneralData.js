@@ -8,7 +8,6 @@ import Modal from "./modal";
 const GetGeneralDates = () => {
     const [isOpenModal, setisOpenModal] = useState(false); // estado de apertura de modal
     const [title, setTitle] = useState('')
-    const [options, setOptios] = useState('')
     const [currentMovies, setCurrentMovies] = useState([]) // peliculas mostradas actualmente
     const [filterInput, setFilterInput] = useState('') // INPUT DE filter
     const [selectedMovie, setSelectedMovie] = useState({}) // PELI SELECC
@@ -19,15 +18,10 @@ const GetGeneralDates = () => {
     };
     const closeModal = () => {
         setisOpenModal(false);
-        //setSelectedUser({}); // si el useEffect de editusers no funciona
     };
 
     const titleHandle = (event) => {
         setTitle(event.target.value);
-    }
-
-    const optionsHandle = (event) => {
-        setOptios(event.target.value);
     }
 
     const setFilterInputHandle = (event) => {
@@ -39,11 +33,7 @@ const GetGeneralDates = () => {
     const baseURL = 'https://www.omdbapi.com/?'  /* 'https://www.omdbapi.com/?i=tt3896198&apikey=f9f22e32' */
 
     const getHandle = (by = '', ref = '') => {
-        //console.log(`${baseURL}${by}=${ref}&apikey=f9f22e32`);
-        return axios.get(`${baseURL}${by}=${ref}&apikey=f9f22e32`).then(res => {
-            const search = options == 's' ? res.data.Search : res.data;
-            return setCurrentMovies(search)
-        })
+        return axios.get(`${baseURL}${by}=${ref}&apikey=f9f22e32`).then(res => setCurrentMovies(res.data.Search))
     }
 
 
@@ -121,7 +111,7 @@ const GetGeneralDates = () => {
             console.log(res.data, 'es la rta indiv')
             setSelectedMovie(res.data)
         })
-        
+
     }
 
     // useEffect(() => {/// hacer que se monte al inicio 
@@ -136,13 +126,6 @@ const GetGeneralDates = () => {
 
             <header className="headerContainer">
                 <div className="searchSection">
-                    Busqueda
-                    <select required onChange={optionsHandle}>
-                        <option value='s'>Opciones </option>
-                        <option value='i'>ID</option>
-                        <option value="s">Palabra clave</option>
-                        <option value="t">Titulo</option>
-                    </select>
 
                     <input
                         list="listInic"
@@ -164,17 +147,17 @@ const GetGeneralDates = () => {
                     </datalist>
 
 
-                    <button onClick={() => getHandle(options, title)}>buscar</button>
+                    <button onClick={() => getHandle('s', title)}>buscar</button>
                     <Modal
                         isOpen={isOpenModal}
                         closeModal={closeModal}
-                        contenido={<ShowOneMovie  selectedMovie={selectedMovie}  /> }
-                         />
+                        contenido={<ShowOneMovie selectedMovie={selectedMovie} />}
+                    />
 
                 </div>
             </header>
             <section className="componentsContainer">
-            <ShowMovies currentMovies={currentMovies} categoryHandle={categoryHandle} filterTypeHandle={filterTypeHandle} showDetailsMovie={showDetailsMovie} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} />
+                <ShowMovies currentMovies={currentMovies} categoryHandle={categoryHandle} filterTypeHandle={filterTypeHandle} showDetailsMovie={showDetailsMovie} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} />
             </section>
         </div>
     )

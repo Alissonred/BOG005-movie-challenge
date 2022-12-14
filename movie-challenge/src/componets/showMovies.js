@@ -30,7 +30,7 @@ const ShowMovies = ({ currentMovies, categoryHandle, filterTypeHandle, showDetai
                     {currentMovies.map((movie, i) => {
                         return (
                             <article key={i} className="articleMovie" >
-                            <section data-id ={movie.imdbID} onClick={showDetailsMovie} >
+                            <section data-id ={movie.imdbID} onClick={showDetailsMovie} className='movieInGrid'>
                                 <picture className='moviePost'>
                                     <img src={movie.Poster} alt='poster' />
                                 </picture>
