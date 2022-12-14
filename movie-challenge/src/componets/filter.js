@@ -1,36 +1,34 @@
 import React, { useState } from "react";
 import './styles.css'
 
-const FilterComponent = ({ currentMovies, filterHandle }) => {
+const FilterComponent = ({ filterHandle, filterInput, setFilterInputHandle }) => {
 
     return (
         <div>
-            <select required onChange={categoryHandle}>
+            <select required onChange={filterHandle}>
                 <option value=''>Tipo </option>
                 <option value='Movie'>Película</option>
                 <option value='Series'>Serie</option>
             </select>
 
-            <div>
-            <imput type='checbox' value='Drama'>Drama</imput>
-            <imput type='checbox' value='Romance'>Romance</imput>
-            <imput type='checbox' value='Action'>Acción</imput>
-            <imput type='checbox' value='Sci-Fi'>Ciencia Ficción</imput>
-            <imput type='checbox' value='Comedy'>Comedia</imput>
-            <imput type='checbox' value='Horror'>Terror</imput>
-            <imput type='checbox' value='Adventure'>Aventura</imput>
-            <imput type='checbox' value='Suspence'>Suspenso</imput>
-            <imput type='checbox' value='Documentary'>Documental</imput>
-            <imput type='checbox' value='Crime'>Crimen</imput>
+         <section className="gendryOptiosContainer">
+            <label > <input type='checkbox' value='Drama' name="drama"/>Drama </label>
+            <label > <input type='checkbox' value='Romance' name="drama"/>Romance </label>
+            <label > <input type='checkbox' value='Action' name="drama"/>Acción </label>
+            <label > <input type='checkbox' value='Sci-Fi' name="drama"/>Ciencia Ficción </label>
+            <label > <input type='checkbox' value='Comedy' name="drama"/>Comedia </label>
+            <label > <input type='checkbox' value='Horror' name="drama"/>Terror</label>
+            <label > <input type='checkbox' value='Aventure' name="drama"/>Aventura </label>
+            <label > <input type='checkbox' value='Suspence' name="drama"/>Suspenso </label>
+            <label > <input type='checkbox' value='Documentary' name="drama"/>Documental</label>
+            <label > <input type='checkbox' value='Crime' name="drama"/>Crimen</label>
 
-           
-
-            </div>
+            </section>
 
 
             <input list="listCountries"
                 type='text'
-                placeholder='dato'
+                placeholder='Pais'
                 value={filterInput}
                 onChange={setFilterInputHandle}
                 required
@@ -276,7 +274,7 @@ const FilterComponent = ({ currentMovies, filterHandle }) => {
 
             <input list="listLanguages"
                 type='text'
-                placeholder='dato'
+                placeholder='Idioma'
                 value={filterInput}
                 onChange={setFilterInputHandle}
                 required
@@ -299,3 +297,4 @@ const FilterComponent = ({ currentMovies, filterHandle }) => {
     )
 }
 export default FilterComponent
+

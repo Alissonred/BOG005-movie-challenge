@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import FilterComponent from "./filter";
 import './styles.css'
 
 const ShowMovies = ({ currentMovies, categoryHandle, filterHandle, filterInput, setFilterInputHandle}) => {
     console.log(currentMovies, 'currentMovies en showmovies');
     return (
 
-        <div>
+        <div >
             <section className="subHeader">
             Categorías generales
             <select required onChange={categoryHandle}>
@@ -22,6 +23,8 @@ const ShowMovies = ({ currentMovies, categoryHandle, filterHandle, filterInput, 
 
             </section>
 
+            <section className="searchContainer">
+            <FilterComponent filterHandle={filterHandle} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle}/>
             <div className="moviesContainer">
                 {currentMovies.map((movie, i) => {
                     return (
@@ -42,6 +45,7 @@ const ShowMovies = ({ currentMovies, categoryHandle, filterHandle, filterInput, 
                 })}
 
             </div>
+            </section>
         </div>
     )
 }

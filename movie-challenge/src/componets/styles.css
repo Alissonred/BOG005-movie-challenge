@@ -52,3 +52,12 @@ width: 100%;
 p{
     margin:0;
 }
+.searchContainer{
+    display: flex;
+
+}
+.gendryOptiosContainer{
+ display: flex;
+ flex-direction: column;
+
+}
