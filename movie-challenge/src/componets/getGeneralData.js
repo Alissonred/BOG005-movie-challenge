@@ -4,6 +4,8 @@ import ShowMovies from "./showMovies";
 import ShowOneMovie from "./showOneMovie";
 import './styles.css'
 import Modal from "./modal";
+import HeaderSearch from "./headerSearch";
+import CatergorySelectionMovie from "./categorySelection";
 
 const GetGeneralDates = () => {
     const [isOpenModal, setisOpenModal] = useState(false); // estado de apertura de modal
@@ -12,6 +14,8 @@ const GetGeneralDates = () => {
     const [searchMovies, setSearchMovies] = useState([]) // peliculas mostradas actualmente
     const [filterInput, setFilterInput] = useState('') // INPUT DE filter
     const [selectedMovie, setSelectedMovie] = useState({}) // PELI SELECC
+    const [activeFilter, setActiveFilter] = useState(false) // filtros
+
 
 
     const openModal = () => {
@@ -35,8 +39,9 @@ const GetGeneralDates = () => {
 
     const getHandle = (by = '', ref = '') => {
         return axios.get(`${baseURL}${by}=${ref}&apikey=f9f22e32`).then(res => {
-         setSearchMovies((res.data.Search))
-            setCurrentMovies(res.data.Search)})
+            setSearchMovies((res.data.Search))
+            setCurrentMovies(res.data.Search)
+        })
     }
 
 
@@ -85,24 +90,21 @@ const GetGeneralDates = () => {
         })
     }
 
-    const filterTypeHandle = (event, opc) => {
-        console.log('entró a evento');
-        everyRequest(searchMovies).then(rta => {
+    const filterTypeHandle = (event, opc) => { // filtro  por pais, idioma,genero y tipo
+        //console.log(event.currentTarget.checked ,'entró a evento');
+        console.log(event.target.value, 'es la cond');
+        if (event.target.value === '' && event.currentTarget.checked == false) {
+            console.log('no hay filtros selecc');
+        }
 
-            if (opc == 'Genre' || opc == 'Country' || opc == 'Language') {
-                const dataFiltred = rta.filter(i => {
-                    return i[opc].includes(event.target.value)
-                })
-                console.log(dataFiltred, 'es lo que filtró')
-                setCurrentMovies([...dataFiltred])
-            } else {
-                const dataFiltred = rta.filter(i => {
-                    return i[opc] == event.target.value
-                })
-                console.log(dataFiltred, 'es lo que filtró')
-                setCurrentMovies([...dataFiltred])
-            }
-            ;
+        everyRequest(searchMovies).then(rta => {   ///searchMovies para que filtre lo encontrado/// currentMovies filtre lo mostr
+            console.log(event.target.value, 'clik')
+            const dataFiltred = rta.filter(i => {
+                setActiveFilter(true)
+                return i[opc].includes(event.target.value)
+            })
+            console.log(dataFiltred, 'es lo que filtró')
+            setCurrentMovies([...dataFiltred])
 
         })
     }
@@ -124,43 +126,33 @@ const GetGeneralDates = () => {
     // }, [])
 
 
+    useEffect(() => {
+        console.log(activeFilter, 'cambio activeFilter');
+        //si activeFilter == true  filtre lo mostr currentMovies 
+        //si activeFilter == false filtre lo encontrado searchMovies
+        ///activeFilter == cuando hay algun filtro selecc //commoooooooo event.target.value ==""?
+        ///activeFilter == false cuando no hay ningun filtro selecc //commoooooooo
+    }, [activeFilter])
+
     return (
         <div className="pageContainer">
 
             <header className="headerContainer">
-                <div className="searchSection">
-
-                    <input
-                        list="listInic"
-                        type='text'
-                        placeholder='Buscar'
-                        value={title}
-                        onChange={titleHandle}
-                        required
-                    ></input>
-
-                    <datalist id="listInic" >
-                        <option value=''>Filtro</option>
-                        <option value='halloween'>halloween</option>
-                        <option value='Love'>amor</option>
-                        <option value='man'>Super Heroes</option>
-                        <option value='star'>Espacio</option>
-                        <option value='marvel'>marvel</option>
-                        <option value='fast'>acción</option>
-                    </datalist>
-
-
-                    <button onClick={() => getHandle('s', title)}>buscar</button>
-                    <Modal
-                        isOpen={isOpenModal}
-                        closeModal={closeModal}
-                        contenido={<ShowOneMovie selectedMovie={selectedMovie} />}
-                    />
-
-                </div>
+                <HeaderSearch title={title} titleHandle={titleHandle} getHandle={getHandle} />
             </header>
+            <section>
+            <CatergorySelectionMovie categoryHandle={categoryHandle}/>
+            </section>
+            <Modal
+                isOpen={isOpenModal}
+                closeModal={closeModal}
+                contenido={<ShowOneMovie selectedMovie={selectedMovie} />}
+            />
+
+
             <section className="componentsContainer">
-                <ShowMovies currentMovies={currentMovies} categoryHandle={categoryHandle} filterTypeHandle={filterTypeHandle} showDetailsMovie={showDetailsMovie} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} />
+                
+                <ShowMovies currentMovies={currentMovies} filterTypeHandle={filterTypeHandle} showDetailsMovie={showDetailsMovie} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} />
             </section>
         </div>
     )

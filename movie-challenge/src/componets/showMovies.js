@@ -2,27 +2,11 @@ import React, { useState } from "react";
 import FilterComponent from "./filter";
 import './styles.css'
 
-const ShowMovies = ({ currentMovies, categoryHandle, filterTypeHandle, showDetailsMovie, filterInput, setFilterInputHandle }) => {
+const ShowMovies = ({ currentMovies, filterTypeHandle, showDetailsMovie, filterInput, setFilterInputHandle }) => {
     console.log(currentMovies, 'currentMovies en showmovies');
     return (
 
         <div >
-            <section className="subHeader">
-                Categorías generales
-                <select required onChange={categoryHandle}>
-                    <option value=''>Categoría </option>
-                    <option value='Title'>Titulo</option>
-                    <option value='imdbVotes'>Votos</option>
-                    <option value='imdbRating'>Puntuación</option>
-                    <option value='Year'>Antiguedad</option>
-                    <option value='Runtime'>Duración</option>
-
-                </select>
-
-                <button onClick={categoryHandle}>Mas opciones</button>
-
-            </section>
-
             <section className="searchContainer">
                 <FilterComponent filterTypeHandle={filterTypeHandle} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} />
                 

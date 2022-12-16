@@ -5,23 +5,30 @@ const FilterComponent = ({ filterTypeHandle, filterInput, setFilterInputHandle }
 
     return (
         <div>
-            <select required onChange={(event)=>filterTypeHandle(event,'Type')}>
+            <input list="listTypes"
+                type='text'
+                placeholder='Tipo (película, serie)'
+                onChange={(event)=>filterTypeHandle(event,'Type')}
+                required
+            ></input>
+
+            <datalist required  id='listTypes' onChange={(event)=>filterTypeHandle(event,'Type')}>
                 <option value=''>Tipo </option>
                 <option value='movie'>Película</option>
                 <option value='series'>Serie</option>
-            </select>
+            </datalist>
 
          <section className="gendryOptiosContainer" onClick={(event)=>filterTypeHandle(event,'Genre')}>
-            <label > <input type='checkbox' value='Drama' name="drama"/>Drama </label>
-            <label > <input type='checkbox' value='Romance' name="drama"/>Romance </label>
-            <label > <input type='checkbox' value='Action' name="drama"/>Acción </label>
-            <label > <input type='checkbox' value='Sci-Fi' name="drama"/>Ciencia Ficción </label>
-            <label > <input type='checkbox' value='Comedy' name="drama"/>Comedia </label>
-            <label > <input type='checkbox' value='Horror' name="drama"/>Terror</label>
-            <label > <input type='checkbox' value='Aventure' name="drama"/>Aventura </label>
-            <label > <input type='checkbox' value='Suspence' name="drama"/>Suspenso </label>
-            <label > <input type='checkbox' value='Documentary' name="drama"/>Documental</label>
-            <label > <input type='checkbox' value='Crime' name="drama"/>Crimen</label>
+            <label > <input type='checkbox' value='Drama' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')} />Drama </label>
+            <label > <input type='checkbox' value='Romance' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Romance </label>
+            <label > <input type='checkbox' value='Action' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Acción </label>
+            <label > <input type='checkbox' value='Sci-Fi' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Ciencia Ficción </label>
+            <label > <input type='checkbox' value='Comedy' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Comedia </label>
+            <label > <input type='checkbox' value='Horror' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Terror</label>
+            <label > <input type='checkbox' value='Aventure' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Aventura </label>
+            <label > <input type='checkbox' value='Suspence' name="drama"onClick={(event)=>filterTypeHandle(event,'Genre')} />Suspenso </label>
+            <label > <input type='checkbox' value='Documentary' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Documental</label>
+            <label > <input type='checkbox' value='Crime' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Crimen</label>
         </section>
 
 
