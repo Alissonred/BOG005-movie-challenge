@@ -1,7 +1,7 @@
 import React from "react";
 import './styles.css'
 
-const CatergorySelectionMovie =({categoryHandle})=>{
+const CatergorySelectionMovie =({categoryHandle, setShowFilterHandle })=>{
 
     return(
         <div>
@@ -17,7 +17,7 @@ const CatergorySelectionMovie =({categoryHandle})=>{
 
                 </select>
 
-                <button onClick={categoryHandle}>Mas opciones</button>
+                <button onClick={setShowFilterHandle}>Mas opciones</button>
 
             </section>
             

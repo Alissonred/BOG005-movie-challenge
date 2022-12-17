@@ -82,3 +82,7 @@ p{
     white-space: nowrap;
     text-overflow: ellipsis;
 } */
+.filter-showmoviesContainer{
+display: flex;
+flex-direction: row;
+}

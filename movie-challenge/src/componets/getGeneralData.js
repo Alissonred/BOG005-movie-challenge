@@ -6,6 +6,7 @@ import './styles.css'
 import Modal from "./modal";
 import HeaderSearch from "./headerSearch";
 import CatergorySelectionMovie from "./categorySelection";
+import FilterComponent from "./filter";
 
 const GetGeneralDates = () => {
     const [isOpenModal, setisOpenModal] = useState(false); // estado de apertura de modal
@@ -15,6 +16,8 @@ const GetGeneralDates = () => {
     const [filterInput, setFilterInput] = useState('') // INPUT DE filter
     const [selectedMovie, setSelectedMovie] = useState({}) // PELI SELECC
     const [activeFilter, setActiveFilter] = useState(false) // filtros
+    const [showFilter, setShowFilter] = useState(false) // mostart filtros
+    const [showCategories, setShowCategories] = useState(false) // mostart filtros
 
 
 
@@ -33,6 +36,11 @@ const GetGeneralDates = () => {
         setFilterInput(event.target.value);
     }
 
+    const setShowFilterHandle = () => {
+        console.log('se activa filtro');
+        setShowFilter(!showFilter);
+    }
+
 
 
     const baseURL = 'https://www.omdbapi.com/?'  /* 'https://www.omdbapi.com/?i=tt3896198&apikey=f9f22e32' */
@@ -40,6 +48,7 @@ const GetGeneralDates = () => {
     const getHandle = (by = '', ref = '') => {
         return axios.get(`${baseURL}${by}=${ref}&apikey=f9f22e32`).then(res => {
             setSearchMovies((res.data.Search))
+            setShowCategories(true)
             setCurrentMovies(res.data.Search)
         })
     }
@@ -86,6 +95,7 @@ const GetGeneralDates = () => {
                     }
                 }
             })
+
             setCurrentMovies([...dataOrdered])
         })
     }
@@ -141,7 +151,7 @@ const GetGeneralDates = () => {
                 <HeaderSearch title={title} titleHandle={titleHandle} getHandle={getHandle} />
             </header>
             <section>
-            <CatergorySelectionMovie categoryHandle={categoryHandle}/>
+                {showCategories ? <CatergorySelectionMovie categoryHandle={categoryHandle} setShowFilterHandle={setShowFilterHandle}  /> : ''}
             </section>
             <Modal
                 isOpen={isOpenModal}
@@ -149,11 +159,13 @@ const GetGeneralDates = () => {
                 contenido={<ShowOneMovie selectedMovie={selectedMovie} />}
             />
 
+        <section className="filter-showmoviesContainer" >
+            {showFilter ? <FilterComponent filterTypeHandle={filterTypeHandle} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} /> : ''}
 
             <section className="componentsContainer">
-                
                 <ShowMovies currentMovies={currentMovies} filterTypeHandle={filterTypeHandle} showDetailsMovie={showDetailsMovie} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} />
             </section>
+        </section>
         </div>
     )
 
