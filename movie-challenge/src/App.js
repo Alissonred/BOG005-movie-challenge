@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import GetGeneralData from './componets/getGeneralData' 
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import LoginView from './routes/LoginView';
+import ProfileView from './routes/profile';
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
       <Routes>
       <Route index element={<GetGeneralData/>} />
       <Route exact path="/" element={<GetGeneralData/>} />
+      <Route exact path="/login" element={<LoginView/>} />
+      <Route exact path="u/:username" element={<ProfileView/>} />
 
      
 
