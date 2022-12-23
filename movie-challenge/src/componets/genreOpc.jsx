@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import './styles.css'
 
-const GenreOptions = () => {
+const GenreOptions = ({containerGenre}) => {
 
+    console.log(containerGenre,'containerGenre en genre opc');
+    console.log(containerGenre, 'containerGenre.childNodes');
+    //let algo=[...containerGenre.childNodes]
+    //console.log(algo, 'es algo');
+// algo.forEach(i=>console.log(i))
     return(
         <div>
             <label > <input type='checkbox' value='Drama' name="drama"  />Drama </label>

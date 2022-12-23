@@ -3,13 +3,8 @@ import GenreOptions from "./genreOpc";
 import './styles.css'
 
 const FilterComponent = ({ filterTypeHandle, filterInput, setFilterInputHandle }) => {
-//  const containerGenre = document.querySelector('.gendryOptiosContainer')
-//  console.log(containerGenre, 'containerGenre');
-// let algo=[...containerGenre.childNodes]
-// console.log(algo, 'es algo');
-// algo.forEach(i=>console.log(i))
-//let arraFilter= [...containerGenre.childNodes].filter(i=>i)
-   // console.log(arraFilter, 'es contaim');
+const containerGenre = document.querySelector('.gendryOptiosContainer')
+
     
     return (
         <div>
@@ -27,7 +22,7 @@ const FilterComponent = ({ filterTypeHandle, filterInput, setFilterInputHandle }
             </datalist>
 
          <section className="gendryOptiosContainer" onClick={(event)=>filterTypeHandle(event,'Genre')}>
-           <GenreOptions />
+           <GenreOptions containerGenre={containerGenre} />
         </section>
 
 

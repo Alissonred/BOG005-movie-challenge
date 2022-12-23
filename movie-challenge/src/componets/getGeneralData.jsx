@@ -107,7 +107,7 @@ const GetGeneralDates = () => {
             console.log('no hay filtros selecc');
         }
 
-        everyRequest(searchMovies).then(rta => {   ///searchMovies para que filtre lo encontrado/// currentMovies filtre lo mostr
+        everyRequest(activeFilter? searchMovies:currentMovies).then(rta => {   ///searchMovies para que filtre lo encontrado/// currentMovies filtre lo mostr
             //console.log(event.target.value, 'clik')
             const dataFiltred = rta.filter(i => {
                 setActiveFilter(true)
