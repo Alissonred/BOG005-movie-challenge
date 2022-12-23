@@ -1,8 +1,16 @@
 import React, { useState } from "react";
+import GenreOptions from "./genreOpc";
 import './styles.css'
 
 const FilterComponent = ({ filterTypeHandle, filterInput, setFilterInputHandle }) => {
-
+//  const containerGenre = document.querySelector('.gendryOptiosContainer')
+//  console.log(containerGenre, 'containerGenre');
+// let algo=[...containerGenre.childNodes]
+// console.log(algo, 'es algo');
+// algo.forEach(i=>console.log(i))
+//let arraFilter= [...containerGenre.childNodes].filter(i=>i)
+   // console.log(arraFilter, 'es contaim');
+    
     return (
         <div>
             <input list="listTypes"
@@ -19,16 +27,7 @@ const FilterComponent = ({ filterTypeHandle, filterInput, setFilterInputHandle }
             </datalist>
 
          <section className="gendryOptiosContainer" onClick={(event)=>filterTypeHandle(event,'Genre')}>
-            <label > <input type='checkbox' value='Drama' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')} />Drama </label>
-            <label > <input type='checkbox' value='Romance' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Romance </label>
-            <label > <input type='checkbox' value='Action' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Acción </label>
-            <label > <input type='checkbox' value='Sci-Fi' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Ciencia Ficción </label>
-            <label > <input type='checkbox' value='Comedy' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Comedia </label>
-            <label > <input type='checkbox' value='Horror' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Terror</label>
-            <label > <input type='checkbox' value='Aventure' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Aventura </label>
-            <label > <input type='checkbox' value='Suspence' name="drama"onClick={(event)=>filterTypeHandle(event,'Genre')} />Suspenso </label>
-            <label > <input type='checkbox' value='Documentary' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Documental</label>
-            <label > <input type='checkbox' value='Crime' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Crimen</label>
+           <GenreOptions />
         </section>
 
 
@@ -305,3 +304,15 @@ const FilterComponent = ({ filterTypeHandle, filterInput, setFilterInputHandle }
 }
 export default FilterComponent
 
+/* <section className="gendryOptiosContainer" onClick={(event)=>filterTypeHandle(event,'Genre')}>
+<label > <input type='checkbox' value='Drama' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')} />Drama </label>
+<label > <input type='checkbox' value='Romance' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Romance </label>
+<label > <input type='checkbox' value='Action' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Acción </label>
+<label > <input type='checkbox' value='Sci-Fi' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Ciencia Ficción </label>
+<label > <input type='checkbox' value='Comedy' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Comedia </label>
+<label > <input type='checkbox' value='Horror' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Terror</label>
+<label > <input type='checkbox' value='Aventure' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Aventura </label>
+<label > <input type='checkbox' value='Suspence' name="drama"onClick={(event)=>filterTypeHandle(event,'Genre')} />Suspenso </label>
+<label > <input type='checkbox' value='Documentary' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Documental</label>
+<label > <input type='checkbox' value='Crime' name="drama" onClick={(event)=>filterTypeHandle(event,'Genre')}/>Crimen</label>
+</section> */

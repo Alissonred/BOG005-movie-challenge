@@ -37,7 +37,7 @@ const GetGeneralDates = () => {
     }
 
     const setShowFilterHandle = () => {
-        console.log('se activa filtro');
+        //console.log('se activa filtro');
         setShowFilter(!showFilter);
     }
 
@@ -65,7 +65,7 @@ const GetGeneralDates = () => {
     const oneRequest = (movie) => {
         return new Promise((resolve, reject) => {
             axios.get(`${baseURL}i=${movie.imdbID}&apikey=f9f22e32`).then(res => {
-                console.log(res.data, 'petición hecha')
+                //console.log(res.data, 'petición hecha')
                 resolve(res.data)
             })
         })
@@ -101,14 +101,14 @@ const GetGeneralDates = () => {
     }
 
     const filterTypeHandle = (event, opc) => { // filtro  por pais, idioma,genero y tipo
-        //console.log(event.currentTarget.checked ,'entró a evento');
+        console.log(event.target.checked ,'entró a evento');
         console.log(event.target.value, 'es la cond');
         if (event.target.value === '' && event.currentTarget.checked == false) {
             console.log('no hay filtros selecc');
         }
 
         everyRequest(searchMovies).then(rta => {   ///searchMovies para que filtre lo encontrado/// currentMovies filtre lo mostr
-            console.log(event.target.value, 'clik')
+            //console.log(event.target.value, 'clik')
             const dataFiltred = rta.filter(i => {
                 setActiveFilter(true)
                 return i[opc].includes(event.target.value)
