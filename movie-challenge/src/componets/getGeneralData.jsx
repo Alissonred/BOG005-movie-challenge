@@ -156,8 +156,12 @@ const GetGeneralDates = () => {
 
     const showDefault =()=>{
         const homeViewTemes=['star', 'Marvel', 'Love', 'halloween']
-        return getSeveralByHome(homeViewTemes).then(res=> defaultMovies = res)
-        
+        return getSeveralByHome(homeViewTemes).then(res=> {
+            defaultMovies=res
+            setCurrentMovies([...defaultMovies])
+            return defaultMovies
+        }
+        )
     }
 
     const showDetailsMovie = (event) => {
@@ -207,7 +211,7 @@ const GetGeneralDates = () => {
                 {showFilter ? <FilterComponent filterTypeHandle={filterTypeHandle} /> : ''}
 
                 <section className="componentsContainer">
-                    {!showCategories ? <HomeView currentMovies={currentMovies} setCurrentMovies={setCurrentMovies} showDefault={showDefault} /> : <ShowMovies currentMovies={currentMovies} filterTypeHandle={filterTypeHandle} showDetailsMovie={showDetailsMovie} />}
+                    {!showCategories ? <HomeView currentMovies={currentMovies} setCurrentMovies={setCurrentMovies} showDefault={showDefault} showDetailsMovie={showDetailsMovie}/> : <ShowMovies currentMovies={currentMovies} showDetailsMovie={showDetailsMovie} />}
                 </section>
             </section>
         </div>
