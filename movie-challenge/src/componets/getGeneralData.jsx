@@ -35,7 +35,6 @@ const GetGeneralDates = () => {
         setShowFilter(!showFilter);
     }
 
-
     const baseURL = 'https://www.omdbapi.com/?'
 
     const getHandle = (by = '', ref = '') => {
@@ -45,7 +44,6 @@ const GetGeneralDates = () => {
             setCurrentMovies(res.data.Search)
         })
     }
-
 
     const everyRequest = (movies) => {
         let arrayPromises = [];
@@ -112,28 +110,15 @@ const GetGeneralDates = () => {
         })
     }
 
-/*     const homeHandle = (teme) => { 
-        console.log(getHandle('s', teme).then(res =>res),'ejec de get');
-        return getHandle('s', teme).then(res => console.log(res,'es res'))}
-        // const homeViewTemes=['star', 'Marvel', 'Love', 'star']
-        // const temeMovies = homeViewTemes.map(teme =>{
-        //     getHandle('s', teme).then(res=>{ //hace la peticion
-        //         setShowCategories(false)
-        //         console.log(res, 'es res');
-        //         //console.log(setCurrentMovies([...res.data.Search]), 'es el retorno');
-        //         //return setCurrentMovies([...res.data.Search])
-        //     }) 
-        // })
+    const showDetailsMovie = (event) => {
+        console.log(event.currentTarget.dataset.id, 'hizo click');
+        axios.get(`${baseURL}i=${event.currentTarget.dataset.id}&apikey=f9f22e32`).then(res => {
+            openModal()
+            console.log(res.data, 'es la rta indiv')
+            setSelectedMovie(res.data)
+        })
 
-        //everyRequest(currentMovies).then(rta => {})
-
-        // return getHandle('s', 'star').then(res => {
-        //     setShowCategories(false)
-        //     console.log(res,'res');
-        //     return setCurrentMovies(res.data.Search)
-        // }) */
-
-
+    }
 
     const getSeveralByHome =(temes)=>{
         let arrayPromises = [];
@@ -161,15 +146,7 @@ const GetGeneralDates = () => {
         )
     }
 
-    const showDetailsMovie = (event) => {
-        console.log(event.currentTarget.dataset.id, 'hizo click');
-        axios.get(`${baseURL}i=${event.currentTarget.dataset.id}&apikey=f9f22e32`).then(res => {
-            openModal()
-            console.log(res.data, 'es la rta indiv')
-            setSelectedMovie(res.data)
-        })
 
-    }
 
     useEffect(() => {/// hacer que se monte al inicio 
         showDefault().then(res=>setCurrentMovies(res))
@@ -203,7 +180,7 @@ const GetGeneralDates = () => {
                 {showFilter ? <FilterComponent filterTypeHandle={filterTypeHandle} /> : ''}
 
                 <section className="componentsContainer">
-                    {!showCategories ? <HomeView currentMovies={currentMovies} setCurrentMovies={setCurrentMovies} showDefault={showDefault} showDetailsMovie={showDetailsMovie}/> : <ShowMovies currentMovies={currentMovies} showDetailsMovie={showDetailsMovie} />}
+                    {!showCategories ? <HomeView currentMovies={currentMovies} showDetailsMovie={showDetailsMovie}/> : <ShowMovies currentMovies={currentMovies} showDetailsMovie={showDetailsMovie} />}
                 </section>
             </section>
         </div>

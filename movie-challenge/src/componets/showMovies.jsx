@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import FilterComponent from "./filter";
 import './styles.css'
 
 const ShowMovies = ({ currentMovies,  showDetailsMovie}) => {
@@ -20,9 +19,6 @@ const ShowMovies = ({ currentMovies,  showDetailsMovie}) => {
                                 <p>{movie.Title} </p>
                             </section>
                                 <p>Año:{movie.Year}</p>
-                                <p>Puntuación:{movie.imdbRating}</p>
-                                <p>Votos:{movie.imdbVotes}</p>
-                                <p>Duración:{movie.Runtime}</p>
                             </article>
                         )
 

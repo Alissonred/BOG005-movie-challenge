@@ -8,11 +8,12 @@ return(
         <article className="articleOneMovie"> 
         <p>titulo:{selectedMovie.Title} </p>
         <p>año:{selectedMovie.Year}</p> 
-        <img src={selectedMovie.Poster}  alt='poster'/>
         <p>Trama: {selectedMovie.Plot}</p> 
         <p>Genero: {selectedMovie.Genre}</p> 
         <p>Puntuación: {selectedMovie.imdbRating}</p> 
         <p>Votos: {selectedMovie.imdbVotes}</p> 
+        <img src={selectedMovie.Poster}  alt='poster'/>
+        
         </article>  
 
     </div>
