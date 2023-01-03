@@ -19,7 +19,6 @@ const GetGeneralDates = () => {
     const [showFilter, setShowFilter] = useState(false) // mostart filtros
     const [showCategories, setShowCategories] = useState(false) // mostart filtros
 
-    let defaultMovies = []
 
     const openModal = () => {
         setisOpenModal(true);
@@ -148,7 +147,6 @@ const GetGeneralDates = () => {
     const getOneByHome = (by = '', ref = '') => {
         return new Promise((resolve, reject) => {
          axios.get(`${baseURL}${by}=${ref}&apikey=f9f22e32`).then(res => {
-            //console.log(res.data.Search, 'es ressssss');
             resolve(res.data.Search)
         })
     })
@@ -157,9 +155,8 @@ const GetGeneralDates = () => {
     const showDefault =()=>{
         const homeViewTemes=['star', 'Marvel', 'Love', 'halloween']
         return getSeveralByHome(homeViewTemes).then(res=> {
-            defaultMovies=res
-            setCurrentMovies([...defaultMovies])
-            return defaultMovies
+            setCurrentMovies([...res])
+            return res
         }
         )
     }
@@ -174,14 +171,9 @@ const GetGeneralDates = () => {
 
     }
 
-    // useEffect(() => {/// hacer que se monte al inicio 
-    //     getHandle('s','star').then(res=>{
-    //         setShowCategories(false)
-    //         return setCurrentMovies(res.data.Search)
-    //     })
-
-
-    // }, [])
+    useEffect(() => {/// hacer que se monte al inicio 
+        showDefault().then(res=>setCurrentMovies(res))
+    }, [])
 
 
     useEffect(() => {
