@@ -8,6 +8,7 @@ import HeaderSearch from "./headerSearch";
 import CatergorySelectionMovie from "./categorySelection";
 import FilterComponent from "./filter";
 import HomeView from "./homeView";
+import PagesSection from "./pagesSection";
 
 const GetGeneralDates = () => {
     const [isOpenModal, setisOpenModal] = useState(false); // estado de apertura de modal
@@ -18,6 +19,7 @@ const GetGeneralDates = () => {
     const [activeFilter, setActiveFilter] = useState(false) // filtros
     const [showFilter, setShowFilter] = useState(false) // mostart filtros
     const [showCategories, setShowCategories] = useState(false) // mostart filtros
+    const [page, setPage] = useState(1)
 
 
     const openModal = () => {
@@ -37,8 +39,8 @@ const GetGeneralDates = () => {
 
     const baseURL = 'https://www.omdbapi.com/?'
 
-    const getHandle = (by = '', ref = '') => {
-        return axios.get(`${baseURL}${by}=${ref}&apikey=f9f22e32`).then(res => {
+    const getHandle = (by = '', ref = '',page = 1) => {
+        return axios.get(`${baseURL}${by}=${ref}&page=${page}&apikey=f9f22e32`).then(res => {
             setSearchMovies((res.data.Search))
             setShowCategories(true)
             setCurrentMovies(res.data.Search)
@@ -146,6 +148,9 @@ const GetGeneralDates = () => {
         )
     }
 
+    const goNextPage = ()=>{}
+    const goBackPage = ()=>{}
+
 
 
     useEffect(() => {/// hacer que se monte al inicio 
@@ -167,6 +172,10 @@ const GetGeneralDates = () => {
             <header className="headerContainer">
                 <HeaderSearch title={title} titleHandle={titleHandle} getHandle={getHandle} />
             </header>
+            <section>
+            {showCategories && !showFilter ?<PagesSection title={title} getHandle={getHandle} page={page}/>:''}
+      
+            </section>
             <section>
                 {showCategories ? <CatergorySelectionMovie categoryHandle={categoryHandle} setShowFilterHandle={setShowFilterHandle} /> : ''}
             </section>
