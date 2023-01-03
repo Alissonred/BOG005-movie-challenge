@@ -7,19 +7,19 @@ import Modal from "./modal";
 import HeaderSearch from "./headerSearch";
 import CatergorySelectionMovie from "./categorySelection";
 import FilterComponent from "./filter";
+import HomeView from "./homeView";
 
 const GetGeneralDates = () => {
     const [isOpenModal, setisOpenModal] = useState(false); // estado de apertura de modal
     const [title, setTitle] = useState('')
     const [currentMovies, setCurrentMovies] = useState([]) // peliculas mostradas actualmente
     const [searchMovies, setSearchMovies] = useState([]) // peliculas mostradas actualmente
-    const [filterInput, setFilterInput] = useState('') // INPUT DE filter
     const [selectedMovie, setSelectedMovie] = useState({}) // PELI SELECC
     const [activeFilter, setActiveFilter] = useState(false) // filtros
     const [showFilter, setShowFilter] = useState(false) // mostart filtros
     const [showCategories, setShowCategories] = useState(false) // mostart filtros
 
-
+    let defaultMovies = []
 
     const openModal = () => {
         setisOpenModal(true);
@@ -32,18 +32,12 @@ const GetGeneralDates = () => {
         setTitle(event.target.value);
     }
 
-    const setFilterInputHandle = (event) => {
-        setFilterInput(event.target.value);
-    }
-
     const setShowFilterHandle = () => {
-        //console.log('se activa filtro');
         setShowFilter(!showFilter);
     }
 
 
-
-    const baseURL = 'https://www.omdbapi.com/?'  /* 'https://www.omdbapi.com/?i=tt3896198&apikey=f9f22e32' */
+    const baseURL = 'https://www.omdbapi.com/?'
 
     const getHandle = (by = '', ref = '') => {
         return axios.get(`${baseURL}${by}=${ref}&apikey=f9f22e32`).then(res => {
@@ -101,13 +95,13 @@ const GetGeneralDates = () => {
     }
 
     const filterTypeHandle = (event, opc) => { // filtro  por pais, idioma,genero y tipo
-        console.log(event.target.checked ,'entró a evento');
+        console.log(event.target.checked, 'entró a evento');
         console.log(event.target.value, 'es la cond');
         if (event.target.value === '' && event.currentTarget.checked == false) {
             console.log('no hay filtros selecc');
         }
 
-        everyRequest(activeFilter? searchMovies:currentMovies).then(rta => {   ///searchMovies para que filtre lo encontrado/// currentMovies filtre lo mostr
+        everyRequest(activeFilter ? searchMovies : currentMovies).then(rta => {   ///searchMovies para que filtre lo encontrado/// currentMovies filtre lo mostr
             //console.log(event.target.value, 'clik')
             const dataFiltred = rta.filter(i => {
                 setActiveFilter(true)
@@ -117,6 +111,53 @@ const GetGeneralDates = () => {
             setCurrentMovies([...dataFiltred])
 
         })
+    }
+
+/*     const homeHandle = (teme) => { 
+        console.log(getHandle('s', teme).then(res =>res),'ejec de get');
+        return getHandle('s', teme).then(res => console.log(res,'es res'))}
+        // const homeViewTemes=['star', 'Marvel', 'Love', 'star']
+        // const temeMovies = homeViewTemes.map(teme =>{
+        //     getHandle('s', teme).then(res=>{ //hace la peticion
+        //         setShowCategories(false)
+        //         console.log(res, 'es res');
+        //         //console.log(setCurrentMovies([...res.data.Search]), 'es el retorno');
+        //         //return setCurrentMovies([...res.data.Search])
+        //     }) 
+        // })
+
+        //everyRequest(currentMovies).then(rta => {})
+
+        // return getHandle('s', 'star').then(res => {
+        //     setShowCategories(false)
+        //     console.log(res,'res');
+        //     return setCurrentMovies(res.data.Search)
+        // }) */
+
+
+
+    const getSeveralByHome =(temes)=>{
+        let arrayPromises = [];
+        temes.forEach((teme) => {
+            arrayPromises.push(getOneByHome('s',teme))
+        })
+
+        return Promise.all(arrayPromises) // retorno un array de promesas
+    }
+
+    const getOneByHome = (by = '', ref = '') => {
+        return new Promise((resolve, reject) => {
+         axios.get(`${baseURL}${by}=${ref}&apikey=f9f22e32`).then(res => {
+            //console.log(res.data.Search, 'es ressssss');
+            resolve(res.data.Search)
+        })
+    })
+    }
+
+    const showDefault =()=>{
+        const homeViewTemes=['star', 'Marvel', 'Love', 'halloween']
+        return getSeveralByHome(homeViewTemes).then(res=> defaultMovies = res)
+        
     }
 
     const showDetailsMovie = (event) => {
@@ -131,8 +172,11 @@ const GetGeneralDates = () => {
 
     // useEffect(() => {/// hacer que se monte al inicio 
     //     getHandle('s','star').then(res=>{
+    //         setShowCategories(false)
     //         return setCurrentMovies(res.data.Search)
     //     })
+
+
     // }, [])
 
 
@@ -151,7 +195,7 @@ const GetGeneralDates = () => {
                 <HeaderSearch title={title} titleHandle={titleHandle} getHandle={getHandle} />
             </header>
             <section>
-                {showCategories ? <CatergorySelectionMovie categoryHandle={categoryHandle} setShowFilterHandle={setShowFilterHandle}  /> : ''}
+                {showCategories ? <CatergorySelectionMovie categoryHandle={categoryHandle} setShowFilterHandle={setShowFilterHandle} /> : ''}
             </section>
             <Modal
                 isOpen={isOpenModal}
@@ -159,13 +203,13 @@ const GetGeneralDates = () => {
                 contenido={<ShowOneMovie selectedMovie={selectedMovie} />}
             />
 
-        <section className="filter-showmoviesContainer" >
-            {showFilter ? <FilterComponent filterTypeHandle={filterTypeHandle} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} /> : ''}
+            <section className="filter-showmoviesContainer" >
+                {showFilter ? <FilterComponent filterTypeHandle={filterTypeHandle} /> : ''}
 
-            <section className="componentsContainer">
-                <ShowMovies currentMovies={currentMovies} filterTypeHandle={filterTypeHandle} showDetailsMovie={showDetailsMovie} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} />
+                <section className="componentsContainer">
+                    {!showCategories ? <HomeView currentMovies={currentMovies} setCurrentMovies={setCurrentMovies} showDefault={showDefault} /> : <ShowMovies currentMovies={currentMovies} filterTypeHandle={filterTypeHandle} showDetailsMovie={showDetailsMovie} />}
+                </section>
             </section>
-        </section>
         </div>
     )
 
@@ -173,5 +217,3 @@ const GetGeneralDates = () => {
 
 export default GetGeneralDates
 
-//contenido={<ShowOneMovie  selectedMovie={selectedMovie}  /> }
-//{options == 's' ? <ShowMovies currentMovies={currentMovies} categoryHandle={categoryHandle} filterTypeHandle={filterTypeHandle} showDetailsMovie={showDetailsMovie} filterInput={filterInput} setFilterInputHandle={setFilterInputHandle} /> : <ShowOneMovie currentMovies={currentMovies} />}

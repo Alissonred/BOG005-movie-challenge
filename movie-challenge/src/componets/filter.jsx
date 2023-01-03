@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import GenreOptions from "./genreOpc";
 import './styles.css'
 
-const FilterComponent = ({ filterTypeHandle, filterInput, setFilterInputHandle }) => {
+const FilterComponent = ({ filterTypeHandle }) => {
 const containerGenre = document.querySelector('.gendryOptiosContainer')
 
     
