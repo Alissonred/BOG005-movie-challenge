@@ -3,13 +3,14 @@ import '../componets/styles.css'
 import { auth, singUserGoogle, singUser, createUser, userAuthState, userExistValidation } from '../firebase/firebase'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useEffect } from "react";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import AuthProvider from "../componets/authProvider";
 
 const LoginView = () => {
     const navigate = useNavigate();
     const [registerEmail, setRegisterEmail] = useState('')
     const [registerPassword, setRegisterPassword] = useState('')
-    const [currentUser, setCurrentUser] = useState(null)/// guarda el obj usuario que inicia sesion
+    //const [currentUser, setCurrentUser] = useState(null)/// guarda el obj usuario que inicia sesion
     const [renderState, setRenderState] = useState(0)// numero para estado
     // /* o-> inicio(inicial)
     //    1->loanding (montarse useEffect) --pagina de trancision
@@ -50,65 +51,43 @@ const LoginView = () => {
         })
     }
 
-    useEffect(() => {
-        setRenderState(1)/// logeando 
-        userAuthState((user) => { /// atrapa user y asiign numros
-            if (user) {
-                setCurrentUser(user)
-                // console.log(user, 'es user');
-                // console.log(user.uid, 'es uid');
-                console.log(user.displayName, 'userName')
-                userExistValidation(user.uid).then(res => {
-                    if(res.exists()){
-                        setRenderState(2)
-                        navigate('/dashboard')
-                    }else{
-                        setRenderState(3)
-                        navigate('/choose-name')
-                    }
-    
-                })// validacion luego de ejec
-        
-            } else {
-                setRenderState(3)
-                console.log('no se ha logeado nadie');
-                navigate('/register')
-            }
-        }); //get info de user logeado actualmente
-    }, [])
+    // useEffect(() => {
+    //     setRenderState(1)/// logeando 
+    //     userAuthState((user) => { /// atrapa user y asiign numros
+    //         if (user) {
+    //             setCurrentUser(user)
+    //             console.log(user.displayName, 'userName')
+    //             userExistValidation(user.uid).then(res => {
+    //                 if(res.exists()){
+    //                     setRenderState(2)
+    //                     navigate('/dashboard')
+    //                 }else{
+    //                     setRenderState(3)
+    //                     navigate('/choose-name')
+    //                 }
 
-    // const userAuthStateHandle = (user) => { /// atrapa user y asiign numros
-    //     if (user) {
-    //         setCurrentUser(user)
-    //         // console.log(user, 'es user');
-    //         // console.log(user.uid, 'es uid');
-    //         console.log(user.displayName, 'userName')
-    //         userExistValidation(user.uid).then(res => {
-    //             if(res.exists()){
-    //                 setRenderState(2)
-    //                 navigate('/dashboard')
-    //             }else{
-    //                 setRenderState(3)
-    //                 navigate('/choose-name')
-    //             }
+    //             })// validacion luego de ejec
 
-    //         })// validacion luego de ejec
-    
-    //     } else {
-    //         setRenderState(3)
-    //         console.log('no se ha logeado nadie');
-    //         navigate('/register')
-    //     }
+    //         } else {
+    //             setRenderState(3)
+    //             console.log('no se ha logeado nadie');
+    //             navigate('/register')
+    //         }
+    //     }); //get info de user logeado actualmente
+    // }, [])
+    ///////////////////////////////////////////////////////////////////
+    const handleLoggedIn = (user) => navigate('/dashboard')
+    const handleNotRegistered = (user) => navigate('/choose-name')
+    const handleNotLoggedIn = () => setRenderState(4)
+
+
+    // if (renderState == 2) {
+    //     return <div>estás autenticado y registrado</div>
     // }
- 
-   
-    if (renderState == 2) {
-        return <div>estás autenticado y registrado</div>
-    }
 
-    if (renderState == 3) {
-        return <div>estás autenticado pero no registrado</div>
-    }
+    // if (renderState == 3) {
+    //     return <div>estás autenticado pero no registrado</div>
+    // }
     if (renderState == 4) {
 
         return (
@@ -139,8 +118,11 @@ const LoginView = () => {
         )
     }
 
-    return <div>loading 'por defecto'</div>
 
+    return (<AuthProvider loggedIn={handleLoggedIn} notRegistered={handleNotRegistered} notLoggedIn={handleNotLoggedIn}>
+        <div>loading ...</div>
+
+    </AuthProvider>)
 }
 
 export default LoginView
