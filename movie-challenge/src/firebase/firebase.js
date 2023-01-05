@@ -16,8 +16,4 @@ export const singUserGoogle = () => signInWithPopup(auth, provider);
 export const singUser= (email, password) => signInWithEmailAndPassword(auth, email, password);
 export const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 export const userAuthState = (userState)=> onAuthStateChanged(auth,userState)/// info del usuario actualm logeado
-export const userExistValidation = (uid)=> getDoc(doc(db, 'users', uid))/* .then(res =>console.log(res)) */ // donde(base), donde(colecc), que(uid)
-export const userExist = (uid)=>{
-/* const docref=doc(db, 'users', uid)
-const res = await docref */
-}
+export const userExistValidation = (uid)=> getDoc(doc(db, 'users', uid))// donde(base), donde(colecc), que(uid)

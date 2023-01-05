@@ -148,8 +148,7 @@ const GetGeneralDates = () => {
         )
     }
 
-    const goNextPage = ()=>{}
-    const goBackPage = ()=>{}
+ 
 
 
 
