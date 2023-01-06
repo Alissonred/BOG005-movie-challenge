@@ -23,3 +23,4 @@ export const registerUser =(user)=> setDoc(doc(db, "users", user.uid), user)// s
 // donde - en una coleccion de referencia que req db y nombre
 // doc porque pide documento con parametros (donde, nombre de doc)
 export const getUserInfo=(uid)=> getDoc(doc(db,'users', uid)).then(res => res.data())
+//{displayName: 'alisson', processCompleted: false, profilePicture: '', uid:"jdqBbNcES1YIWFVlqWSAft3DJR42"}

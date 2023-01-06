@@ -8,40 +8,34 @@ import { useNavigate } from "react-router-dom"
 const AuthProvider = ({children, loggedIn, notRegistered, notLoggedIn}) => {
     const navigate = useNavigate();
     
-
     useEffect(() => {
         userAuthState((user) => { /// atrapa user y asiign numros
-            if (user) {
-                // console.log(user.displayName, 'userName')
+            console.log(user, 'es el user que entra a auth');
+            if (user) {/// si alguien se ha logeado
                 userExistValidation(user.uid).then(res => {
-                    if (res.exists()) {
-                        loggedIn(user)
-                        //const getUserInfoProcess =getUserInfo(user.uid).then(res=>console.log(res.processCompleted, 'es resss'))
-                        //console.log(getUserInfo(user.uid).then(res => res.processCompleted), ' es getuser...');
-                        getUserInfo(user.uid).then(res => {
-                            if(res.processCompleted){
-                                loggedIn(user)
+                    if (res.exists()) { //// evalua si existe el user en mi bd*********
+                        console.log('se ejecuta el if');
+                        getUserInfo(user.uid).then(res => { ///obtenga info de quien se logeo
+                            console.log(res,'getuserInfo');
+                            if(res.processCompleted){ /// si ya registró su nombre
+                                loggedIn(res) // llevelo al dashboard
                             }else{
-                                notRegistered(user)
+                                notRegistered(res) //llevelo a que seleccione un nombre chooseName
                             }
-                        }
-                            )
-                          
-                    } else {
-                        registerUser({
+                        })} else {
+                            console.log('se ejecuta el else');
+                        registerUser({/// si no existe en mi bd arme el objeto y registrelo
                             uid : user.uid,
                             displayName: user.displayName,
                             profilePicture: '',
-                            processCompleted: false,
+                            processCompleted: false, /// condicion para que actuallice el nombre
                             
                         }).then(res => console.log(res, 'en registerUser'))
-                        console.log('bajo register');
-                        notRegistered(user)
+                        notRegistered(user)//llevelo a que seleccione un nombre chooseName
                     }
-                })// validacion luego de ejec
-
+                })
             } else {
-                notLoggedIn(user)
+                notLoggedIn(user)/// llevelo a que inicie sesion para que haya un usuario
             }
         }); //get info de user logeado actualmente
     }, [navigate, loggedIn, notRegistered, notLoggedIn])

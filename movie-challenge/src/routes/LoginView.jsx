@@ -15,9 +15,9 @@ const LoginView = () => {
     //   *o-> inicio(inicial)
     //   * 1->loanding (montarse useEffect) --pagina de trancision
     //    2->login compl (al comprobar que existe en BBDD)userExistValidation true  -->llevar a dashboard
-    //    3->login sin registro (al atrapar user pero sin validar) userExistValidation false -->llevar a registrarse
+    //    3->login sin registro (al atrapar user pero sin validar) userExistValidation false -->llevar a que elija nombre
     //   * 4->no logeado (al no atrapar user y no poder  validar) userAuthStateHandle else -->llevar a registrarse
-    //    5-> ya existe el usuario
+    //    5-> ya existe el usuario -->llevar a que elija nombre
 
     const registerEmailHandle = (event) => {
         console.log(event.target.value, 'para elmail');
@@ -53,9 +53,9 @@ const LoginView = () => {
     }
 
     ///////////////////////////////////////////////////////////////////
-    const handleLoggedIn = (user) => navigate('/dashboard')
-    const handleNotRegistered = (user) => navigate('/choose-name')
-    const handleNotLoggedIn = () => setRenderState(4)
+    const handleLoggedIn = (user) => navigate('/dashboard')// está logeado y registrado
+    const handleNotRegistered = (user) => navigate('/choose-name') /// encuentra usuario pero ve que no está registrado 
+    const handleNotLoggedIn = () => setRenderState(4)/// no encuentra usuario
 
     if (renderState == 4) {
 

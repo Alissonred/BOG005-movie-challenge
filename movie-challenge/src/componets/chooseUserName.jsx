@@ -15,29 +15,31 @@ const ChooseUserName = () => {
     const handleInputNameContinue = ()=>{
         if(inputName != ''){
           exisUsername(inputName).then(res=> {
-            console.log(res, 'rta a consulta si ya hay un nombre similar registrado');
+            //console.log(res, 'rta a consulta si ya hay un nombre similar registrado');
               if(!res){///
                   setState(5)
               }else{/// construye un objeto similar actualizando el  nombre 
-                  const copyUser ={...currentUser}
-                  copyUser.username = inputName
+                console.log('entra al else de chooseName');
+                  const copyUser ={...currentUser} /// VERIFICAR SI ES CURRENT getuserInfo
+                  copyUser.username = inputName ///////VEIFICAR SI ES USERNAME O DISPALY
                   copyUser.processCompleted =true;
-                  updateUser(copyUser).then(res=>console.log(res, 'es salida de update')).catch(error =>console.log(error, 'es el error regist'))
                   console.log(copyUser,'copyUser',currentUser,'currentUser' );
+                  updateUser(copyUser).then(res=>console.log(res, 'es salida de update'))/// ERORRRRR
               }
           }).catch(error =>console.log(error, 'es el error regist'))
             /// verifique si el nombre ya existia
         }
     }
-
-    const handleLoggedIn = (user) => navigate('/dashboard') //pasa a 
-    const handleNotRegistered = (user) => {
+//////////FUNCIONES PARA AUTH///////////////////////
+    const handleLoggedIn = (user) => navigate('/dashboard') 
+    const handleNotRegistered = (user) => {//login pero sin registro
         setCurrentUser(user)
         setState(3)
-    }//login pero sin registro
+    }
     const handleNotLoggedIn = () => navigate('/login')
+//////////////////////////////////////////////////////
 
-    if (renderState === 3 || renderState === 4) {
+    if (renderState === 3 || renderState === 5) {
         return (<div> Bienvenido {currentUser.displayName}
             <div>
                 Para terminar el proceso registra tu nombre
