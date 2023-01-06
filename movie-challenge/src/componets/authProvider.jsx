@@ -18,6 +18,7 @@ const AuthProvider = ({children, loggedIn, notRegistered, notLoggedIn}) => {
                         getUserInfo(user.uid).then(res => { ///obtenga info de quien se logeo
                             console.log(res,'getuserInfo');
                             if(res.processCompleted){ /// si ya registró su nombre
+                                
                                 loggedIn(res) // llevelo al dashboard
                             }else{
                                 notRegistered(res) //llevelo a que seleccione un nombre chooseName

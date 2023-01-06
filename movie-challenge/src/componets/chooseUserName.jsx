@@ -3,6 +3,7 @@ import './styles.css'
 import { useNavigate } from "react-router-dom"
 import AuthProvider from "../componets/authProvider";
 import { exisUsername, updateUser } from "../firebase/firebase";
+import { Link } from 'react-router-dom'
 
 
 const ChooseUserName = () => {
@@ -24,7 +25,9 @@ const ChooseUserName = () => {
                   copyUser.username = inputName ///////VEIFICAR SI ES USERNAME O DISPALY
                   copyUser.processCompleted =true;
                   console.log(copyUser,'copyUser',currentUser,'currentUser' );
-                  updateUser(copyUser).then(res=>console.log(res, 'es salida de update'))/// ERORRRRR
+                  updateUser(copyUser).then(res=>console.log(res, 'es salida de update'))
+                  setState(6)
+                  console.log(renderState, 'renderState');
               }
           }).catch(error =>console.log(error, 'es el error regist'))
             /// verifique si el nombre ya existia
@@ -49,6 +52,15 @@ const ChooseUserName = () => {
             </div>
         </div>
 
+        )
+    }
+
+    if(setState===6){
+        return(
+            <div>
+                <h1>felicitaciones, te has registrado exitosamente</h1>
+                <Link to='/dashboard'>ir a dashboard</Link> 
+            </div>
         )
     }
 
