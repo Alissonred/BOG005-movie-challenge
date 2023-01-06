@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import LoginView from './routes/LoginView';
 import ProfileView from './routes/profile';
 import ChooseUserName from './componets/chooseUserName';
+import DashBoardView from './componets/dashboardView';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route exact path="/login" element={<LoginView/>} />
       <Route exact path="u/:username" element={<ProfileView/>} />
       <Route exact path="/choose-name" element={<ChooseUserName/>} />
+      <Route exact path="/dashboard" element={<DashBoardView/>} />
 
      
 

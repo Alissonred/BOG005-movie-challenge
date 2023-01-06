@@ -14,17 +14,18 @@ const ChooseUserName = () => {
     const handleInputName = (e)=> setInputName(e.target.value)
     const handleInputNameContinue = ()=>{
         if(inputName != ''){
-           const exist = exisUsername(inputName).then(res=>console.log(res,'es inputName')).catch(error =>console.log(error, 'es el error regist'))
-            if(!exist){///
-                setState(5)
-                console.log('entra al if');//// pendiente arreglar
-            }else{
-                const copyUser ={...currentUser}
-                copyUser.username = inputName
-                copyUser.processCompleted =true;
-                updateUser(copyUser).then(res=>console.log(res, 'es salida de update')).catch(error =>console.log(error, 'es el error regist'))
-                console.log(copyUser,'copyUser',currentUser,'currentUser' );
-            }
+          exisUsername(inputName).then(res=> {
+            console.log(res, 'rta a consulta si ya hay un nombre similar registrado');
+              if(!res){///
+                  setState(5)
+              }else{/// construye un objeto similar actualizando el  nombre 
+                  const copyUser ={...currentUser}
+                  copyUser.username = inputName
+                  copyUser.processCompleted =true;
+                  updateUser(copyUser).then(res=>console.log(res, 'es salida de update')).catch(error =>console.log(error, 'es el error regist'))
+                  console.log(copyUser,'copyUser',currentUser,'currentUser' );
+              }
+          }).catch(error =>console.log(error, 'es el error regist'))
             /// verifique si el nombre ya existia
         }
     }
