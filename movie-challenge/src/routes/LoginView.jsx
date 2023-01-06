@@ -12,11 +12,12 @@ const LoginView = () => {
     const [registerPassword, setRegisterPassword] = useState('')
     //const [currentUser, setCurrentUser] = useState(null)/// guarda el obj usuario que inicia sesion
     const [renderState, setRenderState] = useState(0)// numero para estado
-    // /* o-> inicio(inicial)
-    //    1->loanding (montarse useEffect) --pagina de trancision
+    //   *o-> inicio(inicial)
+    //   * 1->loanding (montarse useEffect) --pagina de trancision
     //    2->login compl (al comprobar que existe en BBDD)userExistValidation true  -->llevar a dashboard
     //    3->login sin registro (al atrapar user pero sin validar) userExistValidation false -->llevar a registrarse
-    //    4->no logeado (al no atrapar user y no poder  validar) userAuthStateHandle else -->llevar a registrarse
+    //   * 4->no logeado (al no atrapar user y no poder  validar) userAuthStateHandle else -->llevar a registrarse
+    //    5-> ya existe el usuario
 
     const registerEmailHandle = (event) => {
         console.log(event.target.value, 'para elmail');
@@ -51,43 +52,11 @@ const LoginView = () => {
         })
     }
 
-    // useEffect(() => {
-    //     setRenderState(1)/// logeando 
-    //     userAuthState((user) => { /// atrapa user y asiign numros
-    //         if (user) {
-    //             setCurrentUser(user)
-    //             console.log(user.displayName, 'userName')
-    //             userExistValidation(user.uid).then(res => {
-    //                 if(res.exists()){
-    //                     setRenderState(2)
-    //                     navigate('/dashboard')
-    //                 }else{
-    //                     setRenderState(3)
-    //                     navigate('/choose-name')
-    //                 }
-
-    //             })// validacion luego de ejec
-
-    //         } else {
-    //             setRenderState(3)
-    //             console.log('no se ha logeado nadie');
-    //             navigate('/register')
-    //         }
-    //     }); //get info de user logeado actualmente
-    // }, [])
     ///////////////////////////////////////////////////////////////////
     const handleLoggedIn = (user) => navigate('/dashboard')
     const handleNotRegistered = (user) => navigate('/choose-name')
     const handleNotLoggedIn = () => setRenderState(4)
 
-
-    // if (renderState == 2) {
-    //     return <div>estás autenticado y registrado</div>
-    // }
-
-    // if (renderState == 3) {
-    //     return <div>estás autenticado pero no registrado</div>
-    // }
     if (renderState == 4) {
 
         return (

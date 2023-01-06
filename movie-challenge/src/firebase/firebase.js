@@ -17,3 +17,26 @@ export const singUser= (email, password) => signInWithEmailAndPassword(auth, ema
 export const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 export const userAuthState = (userState)=> onAuthStateChanged(auth,userState)/// info del usuario actualm logeado
 export const userExistValidation = (uid)=> getDoc(doc(db, 'users', uid))// donde(base), donde(colecc), que(uid)
+export const exisUsername=(username)=> getDocs(query(collection(db,'users'), where('username','==', username)))
+// export const exisUsername=(username)=> {
+//     const users = [];
+//     getDocs(query(collection(db,'users'),where('username','==', username))).forEach(i=> users.push(i.data()));
+//     return users
+// }/// similar a userExistValidation pero usando query
+
+//**export const registerUser =(user)=> setDoc(doc(collection(db,'users'), user.uid), user) ///
+//export const registerUser =(user)=> setDoc(doc(db,'users', user.uid), user) ///
+// en donde
+// setDoc o addDoc para generar documento// dep si importa como se llama o no importa, en este caso importa
+// donde - en una coleccion de referencia que req db y nombre
+// doc porque pide documento con parametros (donde, nombre de doc)
+//***export const updateUser=(user)=> setDoc(doc(collection(db,'users'), user.uid), user) // actualiza
+//export const updateUser=(user)=> setDoc(doc(db,'users', user.uid), user) // actualiza
+
+export const updateUser =(user)=>{
+    console.log(user,'es lo que entra');
+    return setDoc(doc(db, "users", user.uid), user)}
+
+ export const registerUser =(user)=>{///okkkk
+    console.log(user,'es lo que entra register');
+   return  setDoc(doc(db, "users", user.uid), user)}
