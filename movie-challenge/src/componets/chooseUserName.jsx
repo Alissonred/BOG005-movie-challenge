@@ -25,8 +25,8 @@ const ChooseUserName = () => {
                   copyUser.username = inputName ///////VEIFICAR SI ES USERNAME O DISPALY
                   copyUser.processCompleted =true;
                   console.log(copyUser,'copyUser',currentUser,'currentUser' );
-                  updateUser(copyUser).then(res=>console.log(res, 'es salida de update'))
-                  setState(6)
+                  updateUser(copyUser).then(res=> res  )
+                  setState(6)/// no está seteando
                   console.log(renderState, 'renderState');
               }
           }).catch(error =>console.log(error, 'es el error regist'))
