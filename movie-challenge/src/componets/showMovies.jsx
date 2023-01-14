@@ -19,6 +19,7 @@ const ShowMovies = ({ currentMovies,  showDetailsMovie}) => {
                                 <p>{movie.Title} </p>
                             </section>
                                 <p>Año:{movie.Year}</p>
+                                <button className="btn btn-primary btn-lg">prueba</button>
                             </article>
                         )
 

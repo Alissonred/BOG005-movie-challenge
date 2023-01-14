@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {firebaseConfig} from './firebase-config'
-import {getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged  } from 'firebase/auth'
+import {getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut  } from 'firebase/auth'
 import {getStorage, ref, uploadBytes, getDownloadURL, getBytes} from 'firebase/storage'
 import {getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where, setDoc, deleteDoc} from 'firebase/firestore'
 
@@ -14,6 +14,7 @@ export const storage = getStorage(app)
 export const provider = new GoogleAuthProvider();// nuevo obj para inic con googl
 export const singUserGoogle = () => signInWithPopup(auth, provider);
 export const singUser= (email, password) => signInWithEmailAndPassword(auth, email, password);
+
 export const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 export const userAuthState = (userState)=> onAuthStateChanged(auth,userState)/// info del usuario actualm logeado
 export const userExistValidation = (uid)=> getDoc(doc(db, 'users', uid))// donde(base), donde(colecc), que(uid)
@@ -24,3 +25,4 @@ export const registerUser =(user)=> setDoc(doc(db, "users", user.uid), user)// s
 // doc porque pide documento con parametros (donde, nombre de doc)
 export const getUserInfo=(uid)=> getDoc(doc(db,'users', uid)).then(res => res.data())
 //{displayName: 'alisson', processCompleted: false, profilePicture: '', uid:"jdqBbNcES1YIWFVlqWSAft3DJR42"}
+export const loginOut = ()=> signOut(auth);

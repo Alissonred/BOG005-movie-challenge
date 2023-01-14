@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import '../componets/styles.css'
-import { auth, singUserGoogle, singUser, createUser, userAuthState, userExistValidation } from '../firebase/firebase'
+import { auth, singUserGoogle, singUser, createUser, userAuthState, userExistValidation, loginOut} from '../firebase/firebase'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom"
@@ -29,18 +29,19 @@ const LoginView = () => {
     }
 
     const registerWithCredentials = () => {
-        createUser().then(res => {
-            console.log(res);
+        createUser(registerEmail, registerPassword ).then(res => {
+            console.log(res, 'al ejecutar createUser()');
         }).catch(error => {
-            console.log(error)
+            console.log(error, 'es el erro')
         })
     }
 
     const loginwithCredentials = () => {
-        singUser().then(res => {
-            console.log(res);
+        console.log(registerEmail, registerPassword, 'son credenciales de ingreso');
+        singUser(registerEmail, registerPassword).then(res => {
+            console.log(res, 'es el res');
         }).catch(error => {
-            console.log(error)
+            console.log(error, 'es  error')
         })
     }
 
@@ -68,6 +69,7 @@ const LoginView = () => {
                     value={registerEmail}
                     placeholder='ingresa tu email'
                     onChange={registerEmailHandle}
+                    required
                 >
                 </input>
 
@@ -76,6 +78,7 @@ const LoginView = () => {
                     value={registerPassword}
                     placeholder='ingresa tu contraseña'
                     onChange={registerPasswordHandle}
+                    required
                 >
                 </input>
                 <p>email: {registerEmail}</p>
