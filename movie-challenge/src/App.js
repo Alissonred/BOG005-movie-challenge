@@ -17,12 +17,13 @@ function App() {
       <Routes>
       <Route index element={<GetGeneralData/>} />
       <Route exact path="/" element={<GetGeneralData/>} />
-      <Route exact path="/login" element={<LoginView/>} />
+      <Route exact path="/login" element={<LoginView option={'login'}/>} />
       <Route exact path="u/:username" element={<ProfileView/>} />
       <Route exact path="/choose-name" element={<ChooseUserName/>} />
       <Route exact path="/dashboard" element={<DashBoardView/>} />
       <Route exact path="/dashboard/profile" element={<EditProfileView/>} />
       <Route exact path="/dashboard/signout" element={<SignOutView/>} />
+      <Route exact path="/register" element={<LoginView option={'register'}/>} />
       
 
      

@@ -5,8 +5,9 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import AuthProvider from "../componets/authProvider";
+import Formulario from "../genericComponents/formulario";
 
-const LoginView = () => {
+const LoginView = ({option}) =>{
     const navigate = useNavigate();
     const [registerEmail, setRegisterEmail] = useState('')
     const [registerPassword, setRegisterPassword] = useState('')
@@ -63,28 +64,8 @@ const LoginView = () => {
         return (
 
             <div>
-                login compornent
-                <input
-                    type='email'
-                    value={registerEmail}
-                    placeholder='ingresa tu email'
-                    onChange={registerEmailHandle}
-                    required
-                >
-                </input>
-
-                <input
-                    type='password'
-                    value={registerPassword}
-                    placeholder='ingresa tu contraseña'
-                    onChange={registerPasswordHandle}
-                    required
-                >
-                </input>
-                <p>email: {registerEmail}</p>
-                <p>contraseña: {registerPassword}</p>
-                <button onClick={registerWithCredentials}>Registrarse </button>
-                <button onClick={loginwithCredentials}>iniciar sesión </button>
+            <Formulario email={registerEmail} emailHandle={registerEmailHandle} password={registerPassword} passwordHandle={registerPasswordHandle}  task={option=='login'?'Ingresar':'Registrarse'} taskFunction={option=='login'?loginwithCredentials: registerWithCredentials} />
+           
                 <button onClick={loginWithGoogle}>iniciar con google </button>
             </div>
         )
@@ -98,3 +79,5 @@ const LoginView = () => {
 }
 
 export default LoginView
+
+
