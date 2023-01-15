@@ -4,11 +4,18 @@ import ShowMovies from "./showMovies";
 import './styles.css'
 
 const HomeView = ({ currentMovies, showDetailsMovie }) => {
-
+console.log(currentMovies, 'en home');
     if (currentMovies.length !== 0) {
         console.log('entra a cond');
         return (
             <div>
+
+                <section>
+
+                </section>
+
+
+
                 <section className="dataHome">
                     <h2>Marvel</h2>
                     <ShowMovies currentMovies={currentMovies[1]} showDetailsMovie={showDetailsMovie} />
@@ -25,6 +32,8 @@ const HomeView = ({ currentMovies, showDetailsMovie }) => {
                     <h2>Halloween</h2>
                     <ShowMovies currentMovies={currentMovies[3]} showDetailsMovie={showDetailsMovie} />
                 </section>
+
+
             </div>
         )
     }

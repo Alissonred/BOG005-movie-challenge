@@ -8,6 +8,9 @@ import ChooseUserName from './componets/chooseUserName';
 import DashBoardView from './componets/dashboardView';
 import EditProfileView from './componets/editProfileVierw';
 import SignOutView from './componets/singOut';
+import StartView from './routes/startView';
+import DetailsView from './routes/detailsView';
+
 
 function App() {
   return (
@@ -15,14 +18,16 @@ function App() {
       <header className="App-header">
       <BrowserRouter>
       <Routes>
-      <Route index element={<GetGeneralData/>} />
-      <Route exact path="/" element={<GetGeneralData/>} />
+      <Route index element={<StartView/>} />
+      <Route exact path="/" element={<StartView search={''}/>} />
+      <Route exact path="/search" element={<StartView search={'search'}/>} />
       <Route exact path="/login" element={<LoginView option={'login'}/>} />
       <Route exact path="u/:username" element={<ProfileView/>} />
       <Route exact path="/choose-name" element={<ChooseUserName/>} />
       <Route exact path="/dashboard" element={<DashBoardView/>} />
       <Route exact path="/dashboard/profile" element={<EditProfileView/>} />
       <Route exact path="/dashboard/signout" element={<SignOutView/>} />
+      <Route exact path="/detailsMovie" element={<DetailsView/>} />
       <Route exact path="/register" element={<LoginView option={'register'}/>} />
       
 

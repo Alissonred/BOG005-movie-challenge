@@ -1,0 +1,92 @@
+html{
+    margin: 0;
+    padding: 0;
+}
+.pageContainer{
+    background-color: #242424;;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.moviesContainer{
+/*     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+    width: 100%;
+    gap:5px */
+    display: flex;
+    gap: 3rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+   /*  overflow-x: auto; */
+    width: 90%;
+    flex-wrap: wrap;
+    
+}
+.searchSection{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.articleMovie{
+    margin-top: 0.2rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    background-color: bisque;
+}
+.componentsContainer{
+width: 100%;
+}
+.headerContainer{
+    padding:3rem 0 3rem;
+}
+.subHeader{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 1rem;
+}
+
+.moviePost{
+    width: fit-content;
+    height: auto;
+    min-height: 300px;
+    display: flex;
+}
+p{
+    margin:0;
+}
+.searchContainer{
+    display: flex;
+
+}
+.gendryOptiosContainer{
+ display: flex;
+ flex-direction: column;
+
+}
+.movieInGrid{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+/*     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; */
+}
+
+/* .movieInGrid p{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+} */
+.filter-showmoviesContainer{
+display: flex;
+flex-direction: row;
+}
+.dataHome > h2 {
+    color: antiquewhite;
+}

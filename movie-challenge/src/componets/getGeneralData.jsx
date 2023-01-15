@@ -189,6 +189,7 @@ const GetGeneralDates = () => {
                 </section>
 
                 <section>
+
                 {showCategories && !showFilter ?<PagesSection title={title} getHandle={getHandle} page={page}/>:''}
                 </section>
             </section>
