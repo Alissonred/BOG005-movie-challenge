@@ -13,7 +13,7 @@ const CatergorySelectionMovie =({categoryHandle, setShowFilterHandle     })=>{
                     <option value='imdbVotes'>Votos</option>
                     <option value='imdbRating'>Puntuación</option>
                     <option value='Year'>Antiguedad</option>
-                    <option value='Runtime'>Duración</option>
+                    <option value='Runtime'>Duración </option>
 
                 </select>
 

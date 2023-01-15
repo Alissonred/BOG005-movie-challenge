@@ -67,21 +67,22 @@ const GetGeneralDates = () => {
     const categoryHandle = (event) => {
         everyRequest(currentMovies).then(rta => {// es un array
             const dataOrdered = rta.sort((a, b) => {
-                if (event.target.value == 'Runtime') {
+                if (event.target.value == 'Runtime') { /// duracion de menor a mayor
                     if (Number(a[event.target.value].slice(0, -4)) < Number(b[event.target.value].slice(0, -4))) {
                         return -1
                     } else {
                         return 1
                     }
                 }
-                else if (event.target.value == 'imdbVotes' || event.target.value == 'imdbRating') {
+                else if (event.target.value == 'imdbVotes' || event.target.value == 'imdbRating') { // mayor a menor
                     if (Number(a[event.target.value].replace(',', '')) < Number(b[event.target.value].replace(',', ''))) {
-                        return -1
-                    } else {
+                        console.log(Number(a[event.target.value].replace(',', '')), Number(b[event.target.value].replace(',', '')), 'ayb');
                         return 1
+                    } else {
+                        return -1
                     }
                 } else {
-                    if (a[event.target.value] < b[event.target.value]) {
+                    if (a[event.target.value] < b[event.target.value]) {// otras
                         return -1
                     } else {
                         return 1
@@ -172,17 +173,13 @@ const GetGeneralDates = () => {
                 <HeaderSearch title={title} titleHandle={titleHandle} getHandle={getHandle} />
             </header>
             <section>
-            {showCategories && !showFilter ?<PagesSection title={title} getHandle={getHandle} page={page}/>:''}
-      
-            </section>
-            <section>
                 {showCategories ? <CatergorySelectionMovie categoryHandle={categoryHandle} setShowFilterHandle={setShowFilterHandle} /> : ''}
             </section>
             <Modal
                 isOpen={isOpenModal}
                 closeModal={closeModal}
                 contenido={<ShowOneMovie selectedMovie={selectedMovie} />}
-            />
+                />
 
             <section className="filter-showmoviesContainer" >
                 {showFilter ? <FilterComponent filterTypeHandle={filterTypeHandle} /> : ''}
@@ -190,7 +187,13 @@ const GetGeneralDates = () => {
                 <section className="componentsContainer">
                     {!showCategories ? <HomeView currentMovies={currentMovies} showDetailsMovie={showDetailsMovie}/> : <ShowMovies currentMovies={currentMovies} showDetailsMovie={showDetailsMovie} />}
                 </section>
+
+                <section>
+                {showCategories && !showFilter ?<PagesSection title={title} getHandle={getHandle} page={page}/>:''}
+                </section>
             </section>
+
+
         </div>
     )
 

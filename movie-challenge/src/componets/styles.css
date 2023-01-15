@@ -16,10 +16,11 @@ html{
     display: flex;
     gap: 3rem;
     flex-direction: row;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-
+   /*  overflow-x: auto; */
+    width: 90%;
+    flex-wrap: wrap;
     
 }
 .searchSection{
@@ -85,4 +86,7 @@ p{
 .filter-showmoviesContainer{
 display: flex;
 flex-direction: row;
+}
+.dataHome > h2 {
+    color: antiquewhite;
 }
