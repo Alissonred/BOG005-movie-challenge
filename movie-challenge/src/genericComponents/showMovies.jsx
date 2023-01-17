@@ -9,6 +9,7 @@ const ShowMovies = ({ currentMovies,  showDetailsMovie}) => {
             <section className="searchContainer">
                 
                 <div className="moviesContainer">
+                  
                     {currentMovies.map((movie, i) => {
                         return (
                             <article key={i} className="articleMovie" >

@@ -2,10 +2,7 @@ import { getData } from "./request";
 
 //////////////////doble petición///////////////////////////
 export const oneRequest = (movie, by) => {
-        return new Promise((resolve, reject) => getData( by, movie.imdbID, '').then(res => {
-            console.log(res.data, 'oneRequest');
-            resolve(res.data)
-        })
+        return new Promise((resolve, reject) => getData( by, movie.imdbID, '').then(res => resolve(res.data))
         )
     }
 
@@ -17,6 +14,11 @@ export const everyRequest = (movies, by, callback) => {
         })
         return Promise.all(arrayPromises) // retorno un array de promesas
     }
+
+export const getOneByHome = (movie, by ) => {
+    return new Promise((resolve, reject) => getData(by, movie, '').then(res => resolve(res.data.Search)))
+}
+    
 
 /////////////////////////////////////////////////
 
@@ -44,6 +46,8 @@ export const categoryOrder = (array, option) =>{
             }
         }
     })
-
+    
 }
+
+/////////////////////////////////////////////////
 

@@ -4,6 +4,8 @@ import './styles.css'
 
 const HeaderSearch =({title, titleHandle, getHandle})=>{
 
+
+
     return(
         <div className="searchSection">
         <input
@@ -19,7 +21,7 @@ const HeaderSearch =({title, titleHandle, getHandle})=>{
             <option value=''>Filtro</option>
         </datalist>
 
-        <button onClick={() => getHandle('s', title)}>buscar</button>
+        <button onClick={() =>getHandle('s', title)}>buscar</button>
     </div>
     )
 }

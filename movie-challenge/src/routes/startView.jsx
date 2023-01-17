@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getData } from "../functions/request";
-import { everyRequest, oneRequest, categoryOrder } from '../functions/others'
+import { everyRequest, oneRequest, categoryOrder, getOneByHome } from '../functions/others'
 import ShowMovies from "../genericComponents/showMovies";
 import ShowOneMovie from "../genericComponents/showMovies";
 import HeaderSearch from "../genericComponents/headerSearch";
@@ -8,8 +8,10 @@ import CatergorySelectionMovie from "../genericComponents/categorySelection";
 import FilterComponent from "../genericComponents/filter";
 import PagesSection from "../genericComponents/pagesSection";
 import { Link, useNavigate } from "react-router-dom";
-import HomeView from "../componets/homeView";
+import HomeView from "../genericComponents/homeView";
 
+
+const homeViewTemes = ['Star', 'Marvel', 'Love', 'Halloween']
 
 
 const StartView = ({ search }) => {
@@ -19,17 +21,29 @@ const StartView = ({ search }) => {
   const [searchMovies, setSearchMovies] = useState([]) // peliculas mostradas actualmente
   const [selectedMovie, setSelectedMovie] = useState({}) // PELI SELECC
   const [page, setPage] = useState(1)
+  const [problems, setProblems] = useState('')
   
+ 
 
   const titleHandle = (event) => {
+
     setTitle(event.target.value);
+    
   }
 
-  const getHandle = (by = '', ref = '', page = 1) => getData(by, ref, page).then(res => {
+  const getHandle = (by = '', ref = '', page = 1) =>{ 
+ if(ref.length>= 3){
+  setProblems('')
+  return getData(by, ref, page).then(res => {
+    console.log(res, 'es el resultado');
     setSearchMovies(res.data.Search)
     setCurrentMovies(res.data.Search)
     navigate("/search")
   }).catch(error => console.log(error))
+    }else{
+      setProblems('El titulo suministrado es muy corto')
+    }
+}
 
 
   const categoryHandle = (event) => {
@@ -47,35 +61,56 @@ const StartView = ({ search }) => {
   }
 
   const showDefault = () => {
-    const homeViewTemes = ['star', 'Marvel', 'Love', 'halloween']
-    return everyRequest(homeViewTemes, 's', oneRequest ).then(res => {
-      
-      console.log(res, 'es res de showDefault');
-      let respuestas = res.map(i=> i.Search)
-      console.log(respuestas, 'respuestas');
-      setCurrentMovies([...respuestas])
-      //setCurrentMovies([...res])
-
+    return everyRequest(homeViewTemes, 's', getOneByHome ).then(res => {
+      setCurrentMovies([...res])
       return res
-    }
+    })
+  }
+
+  useEffect(() => {/// hacer que se monte al inicio 
+    showDefault().then(res=>setCurrentMovies(res))
+}, [])
+
+  console.log(currentMovies, 'currentMovies');
+  console.log(title, 'title');
+
+  if(currentMovies == undefined){
+    return(
+      <div>
+        <header className="headerContainer">
+        <HeaderSearch title={title} titleHandle={titleHandle} getHandle={getHandle}  />
+      </header>
+      <h3> intenta de nuevo la busqueda</h3>
+      </div>
     )
   }
 
-  console.log(currentMovies, 'currentMovies');
-console.log(search, 'sear');
-  return (
-    <div>Home
+  if(problems != ''){
+    return(
+      <div>
       <header className="headerContainer">
-        <HeaderSearch title={title} titleHandle={titleHandle} getHandle={getHandle} />
+      <HeaderSearch title={title} titleHandle={titleHandle} getHandle={getHandle}  />
+      </header>
+    <h3> {problems}</h3>
+    </div>
+    )
+  }
+
+  
+  return (
+    <div>
+      <header className="headerContainer">
+        <HeaderSearch title={title} titleHandle={titleHandle} getHandle={getHandle}  />
       </header>
       <section>
-        {currentMovies !== [] && search === 'search' ? <CatergorySelectionMovie categoryHandle={categoryHandle} /> : ''}
-        {currentMovies !== [] && search === 'search' ? <Link>Mas opciones</Link> : ''}
+
+        { title != '' && search === 'search' ? <CatergorySelectionMovie categoryHandle={categoryHandle} /> : ''}
+        {title != '' && search === 'search' ? <Link>Mas opciones</Link> : ''}
       </section>
       <section className="componentsContainer">
-        { search ? <ShowMovies currentMovies={currentMovies} showDetailsMovie={showDetailsMovie} /> : <HomeView currentMovies={currentMovies} showDetailsMovie={showDetailsMovie} />  }
+        { title != '' ? <ShowMovies currentMovies={currentMovies} showDetailsMovie={showDetailsMovie} label= {title} /> : <HomeView currentMovies={currentMovies} showDetailsMovie={showDetailsMovie} temesDefault={homeViewTemes}/>  }
       </section>
-      <button onClick={showDefault}>algoo</button>
+   
 
     </div>
   )
